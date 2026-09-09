@@ -44,7 +44,7 @@ export const SECTIONS: Section[] = [
   {
     id: 'overview',
     icon: 'overview',
-    label: bi('My day', 'என் நாள்'),
+    label: bi("Today's Overview", 'இன்றைய கண்ணோட்டம்'),
     group: G.command,
     roles: ['collector', 'rdo', 'bdo', 'tahsildar', 'hod'],
   },
