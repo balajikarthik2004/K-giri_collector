@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 
-export type Lang = 'ta' | 'en'
+export type Lang = 'en' | 'ta'
 
 /** A bilingual string. Every piece of copy in the app is one of these. */
 export type Bi = { en: string; ta: string }
@@ -24,12 +24,12 @@ type Ctx = {
 }
 
 const I18nContext = createContext<Ctx | null>(null)
-const STORAGE_KEY = 'kgiri.lang'
+const STORAGE_KEY = 'kgiri.lang.v2'
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => {
     const stored = typeof localStorage !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null
-    return stored === 'en' || stored === 'ta' ? stored : 'ta'
+    return stored === 'en' || stored === 'ta' ? stored : 'en'
   })
 
   const setLang = useCallback((next: Lang) => {

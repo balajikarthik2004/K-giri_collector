@@ -451,7 +451,7 @@ export function Shell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="chrome-chip flex items-center rounded p-0.5">
-            {(['ta', 'en'] as const).map((code) => (
+            {(['en', 'ta'] as const).map((code) => (
               <button
                 key={code}
                 type="button"
