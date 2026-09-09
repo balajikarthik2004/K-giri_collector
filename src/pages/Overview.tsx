@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { bi, num, useI18n } from '../i18n'
+import { useEffect, useRef, useState } from 'react'
+import { bi, num, useI18n, type Bi } from '../i18n'
 import { ui } from '../i18n/ui'
 import { Icon } from '../components/Icon'
 import { PageHead } from '../components/ui/PageHead'
@@ -11,7 +11,16 @@ import { useApp } from '../app/store'
 
 /* ---------------- Today's diary ---------------- */
 
-const SCHEDULE = [
+type Engagement = {
+  from: string
+  to: string
+  title: Bi | string
+  place: Bi | string
+  kind: Bi | string
+  tone: 'neutral' | 'info' | 'critical' | 'good' | 'warning' | 'serious'
+}
+
+const SCHEDULE_SEED: Engagement[] = [
   {
     from: '09:00',
     to: '10:15',
@@ -24,7 +33,7 @@ const SCHEDULE = [
     from: '10:30',
     to: '13:00',
     title: bi('Grievance day — public hearing', 'மனுநீதி நாள் — பொதுமக்கள் விசாரணை'),
-    place: bi('Collectorate hall · 380 petitions', 'ஆட்சியர் அரங்கம் · 380 மனுக்கள்'),
+    place: bi('Collectorate hall · 380 people waiting', 'ஆட்சியர் அரங்கம் · 380 பேர் காத்திருப்பு'),
     kind: bi('Public', 'பொது'),
     tone: 'info' as const,
   },
@@ -122,7 +131,7 @@ const OVERNIGHT = [
   },
   {
     ref: 'PG/KRI/7781',
-    title: bi('Old age pension arrears — 3 months', 'முதியோர் ஓய்வூதிய நிலுவை — 3 மாதங்கள்'),
+    title: bi('Old age pension not paid — 3 months', 'முதியோர் ஓய்வூதியம் வரவில்லை — 3 மாதம்'),
     from: bi('CPGRAMS', 'மத்திய மனு தளம்'),
     officer: bi('DSWO', 'மாவட்ட சமூக நல அலுவலர்'),
     officerName: 'D. Priya',
@@ -160,10 +169,156 @@ const LAW_FLASH = [
 
 const RAIN_7D = [4.2, 0, 8.6, 12.1, 6.4, 18.2, 14.2]
 
+/* ---------------- Block time ---------------- */
+
+/** Add an hour to a "HH:MM" clock string, clamped to the end of the day. */
+function plusHour(time: string) {
+  const [hours, minutes] = time.split(':').map(Number)
+  return `${String(Math.min(hours + 1, 23)).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+}
+
+function BlockTimeDialog({
+  suggestFrom,
+  onCancel,
+  onAdd,
+}: {
+  suggestFrom: string
+  onCancel: () => void
+  onAdd: (entry: Engagement) => void
+}) {
+  const { t } = useI18n()
+  const [title, setTitle] = useState('')
+  const [place, setPlace] = useState('')
+  const [from, setFrom] = useState(suggestFrom)
+  const [to, setTo] = useState(plusHour(suggestFrom))
+  const firstRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    firstRef.current?.focus()
+    const onKey = (event: KeyboardEvent) => event.key === 'Escape' && onCancel()
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onCancel])
+
+  const valid = title.trim().length > 0 && to > from
+
+  const submit = () => {
+    if (!valid) return
+    onAdd({
+      from,
+      to,
+      title: title.trim(),
+      place: place.trim() || t(bi('Collector chamber', 'ஆட்சியர் அறை')),
+      kind: bi('Blocked', 'ஒதுக்கப்பட்டது'),
+      tone: 'neutral',
+    })
+  }
+
+  return (
+    <div className="fixed inset-0 z-[75] flex items-center justify-center p-4" data-print="hide">
+      <button
+        type="button"
+        aria-label={t(ui.close)}
+        onClick={onCancel}
+        className="absolute inset-0 bg-black/45"
+      />
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={t(bi('Block time', 'நேரம் ஒதுக்கு'))}
+        className="relative w-full max-w-sm rounded-lg border border-hairline bg-surface-container-lowest p-4 shadow-2xl"
+      >
+        <h2 className="font-headline-sm text-headline-sm font-bold text-on-surface">
+          {t(bi('Block time', 'நேரம் ஒதுக்கு'))}
+        </h2>
+        <p className="mt-0.5 mb-3 font-body-sm text-body-sm text-on-surface-variant">
+          {t(bi("Adds a slot to today's diary", 'இன்றைய நிகழ்ச்சி நிரலில் சேர்க்கும்'))}
+        </p>
+
+        <div className="flex flex-col gap-2.5">
+          <label className="flex flex-col gap-1">
+            <span className="font-label-sm text-label-sm font-semibold text-on-surface-variant">
+              {t(bi('What is it', 'எதற்கு'))}
+            </span>
+            <input
+              ref={firstRef}
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              onKeyDown={(event) => event.key === 'Enter' && submit()}
+              placeholder={t(bi('Review with Tahsildars', 'வட்டாட்சியர்களுடன் ஆய்வு'))}
+              className="rounded border border-hairline-strong bg-surface-container-low px-2.5 py-1.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none"
+            />
+          </label>
+
+          <label className="flex flex-col gap-1">
+            <span className="font-label-sm text-label-sm font-semibold text-on-surface-variant">
+              {t(bi('Where', 'இடம்'))}
+            </span>
+            <input
+              value={place}
+              onChange={(event) => setPlace(event.target.value)}
+              onKeyDown={(event) => event.key === 'Enter' && submit()}
+              placeholder={t(bi('Collector chamber', 'ஆட்சியர் அறை'))}
+              className="rounded border border-hairline-strong bg-surface-container-low px-2.5 py-1.5 font-body-sm text-body-sm text-on-surface focus:border-primary focus:outline-none"
+            />
+          </label>
+
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { label: bi('From', 'முதல்'), value: from, set: setFrom },
+              { label: bi('To', 'வரை'), value: to, set: setTo },
+            ].map((field) => (
+              <label key={t(field.label)} className="flex flex-col gap-1">
+                <span className="font-label-sm text-label-sm font-semibold text-on-surface-variant">
+                  {t(field.label)}
+                </span>
+                <input
+                  type="time"
+                  value={field.value}
+                  onChange={(event) => field.set(event.target.value)}
+                  className="rounded border border-hairline-strong bg-surface-container-low px-2.5 py-1.5 font-body-sm text-body-sm tabular-nums text-on-surface focus:border-primary focus:outline-none"
+                />
+              </label>
+            ))}
+          </div>
+
+          {!valid && (title.length > 0 || to <= from) && (
+            <p className="font-label-sm text-label-sm text-crit">
+              {title.trim().length === 0
+                ? t(bi('Give it a name', 'ஒரு பெயர் கொடுங்கள்'))
+                : t(bi('End time must be after the start', 'முடிவு நேரம் தொடக்கத்திற்குப் பின் இருக்க வேண்டும்'))}
+            </p>
+          )}
+        </div>
+
+        <div className="mt-4 flex justify-end gap-2">
+          <Btn label={ui.close} onClick={onCancel} />
+          <Btn
+            label={bi('Block it', 'ஒதுக்கு')}
+            icon="event_available"
+            variant="primary"
+            onClick={submit}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function OverviewPage() {
   const { t } = useI18n()
-  const { go } = useApp()
+  const { go, notify } = useApp()
   const [drill, setDrill] = useState<Drill | null>(null)
+  const [schedule, setSchedule] = useState<Engagement[]>(SCHEDULE_SEED)
+  const [blocking, setBlocking] = useState(false)
+
+  const addEngagement = (entry: Engagement) => {
+    setSchedule((current) =>
+      [...current, entry].sort((a, b) => a.from.localeCompare(b.from)),
+    )
+    setBlocking(false)
+    notify(bi("Time blocked in today's diary", 'இன்றைய நிகழ்ச்சி நிரலில் நேரம் ஒதுக்கப்பட்டது'))
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -184,7 +339,7 @@ export function OverviewPage() {
           onClick={() => go('actions')}
         />
         <Stat
-          label={bi('Escalated overnight', 'இரவில் மேல்முறையீடு')}
+          label={bi('Came up overnight', 'இரவில் வந்தவை')}
           value="9"
           delta={t(bi('3 CM Cell', '3 முதல்வர் பிரிவு'))}
           deltaTone="bad"
@@ -220,13 +375,22 @@ export function OverviewPage() {
           <PanelHead
             icon="event"
             title={bi("Today's schedule", 'இன்றைய நிகழ்ச்சி நிரல்')}
-            note={bi('4 engagements · 1 high priority', '4 நிகழ்வுகள் · 1 முன்னுரிமை')}
-            actions={<Btn icon="add" label={bi('Block time', 'நேரம் ஒதுக்கு')} />}
+            note={`${num(schedule.length)} ${t(bi('engagements', 'நிகழ்வுகள்'))} · ${num(
+              schedule.filter((item) => item.tone === 'critical').length,
+            )} ${t(bi('high priority', 'முன்னுரிமை'))}`}
+            actions={
+              <Btn
+                icon="add"
+                label={bi('Block time', 'நேரம் ஒதுக்கு')}
+                variant="primary"
+                onClick={() => setBlocking(true)}
+              />
+            }
           />
           <ol className="flex flex-col gap-2">
-            {SCHEDULE.map((item) => (
+            {schedule.map((item) => (
               <li
-                key={item.from}
+                key={`${item.from}-${t(item.title)}`}
                 className={`flex flex-col gap-1 rounded p-2.5 sm:flex-row sm:items-center sm:gap-3 ${
                   item.tone === 'critical'
                     ? 'border-l-4 border-error bg-error-container/40'
@@ -323,8 +487,8 @@ export function OverviewPage() {
         <Panel>
           <PanelHead
             icon="notifications_active"
-            title={bi('Escalated overnight', 'இரவில் மேல்முறையீடு')}
-            note={bi('Petitions raised to Collector', 'ஆட்சியருக்கு அனுப்பப்பட்ட மனுக்கள்')}
+            title={bi('Came up overnight', 'இரவில் வந்தவை')}
+            note={bi('Complaints sent to the Collector', 'ஆட்சியருக்கு அனுப்பப்பட்ட புகார்கள்')}
             actions={<Btn icon="arrow_forward" onClick={() => go('grievances')} title={t(ui.drillDown)} variant="ghost" />}
           />
           <ul className="flex flex-col gap-2">
@@ -337,15 +501,15 @@ export function OverviewPage() {
                       title: t(item.title),
                       ref: item.ref,
                       tone: item.tone,
-                      status: bi('Escalated', 'மேல்முறையீடு'),
+                      status: bi('Sent up', 'மேலிடத்திற்கு அனுப்பப்பட்டது'),
                       facts: [
-                        { label: bi('Channel', 'வழி'), value: t(item.from) },
-                        { label: bi('With officer', 'அலுவலரிடம்'), value: t(item.officer) },
+                        { label: bi('How it came in', 'எப்படி வந்தது'), value: t(item.from) },
+                        { label: bi('Who has it', 'யாரிடம் உள்ளது'), value: t(item.officer) },
                         {
-                          label: bi('Petition age', 'மனுவின் காலம்'),
+                          label: bi('Waiting', 'காத்திருப்பு'),
                           value: `${num(item.ageDays)} ${t(ui.days)}`,
                         },
-                        { label: bi('Petitioner', 'மனுதாரர்'), value: item.petitioner },
+                        { label: bi('Who complained', 'புகார் அளித்தவர்'), value: item.petitioner },
                       ],
                       officer: {
                         name: item.officerName,
@@ -464,6 +628,14 @@ export function OverviewPage() {
         <Icon name="verified_user" className="text-sm text-good" />
         {t(ui.liveTelemetry)} · {t(ui.offlineHint)} · {num(15)} {t(bi('modules', 'தொகுதிகள்'))}
       </p>
+
+      {blocking && (
+        <BlockTimeDialog
+          suggestFrom={schedule.at(-1)?.to ?? '09:00'}
+          onCancel={() => setBlocking(false)}
+          onAdd={addEngagement}
+        />
+      )}
 
       <DrillDrawer drill={drill} onClose={() => setDrill(null)} />
     </div>

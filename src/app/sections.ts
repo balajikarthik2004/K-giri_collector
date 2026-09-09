@@ -76,7 +76,7 @@ export const SECTIONS: Section[] = [
   {
     id: 'grievances',
     icon: 'mark_email_unread',
-    label: bi('Grievances & CM cell', 'மனுக்கள் & முதல்வர் பிரிவு'),
+    label: bi('Public complaints', 'மக்கள் புகார்கள்'),
     group: G.admin,
     roles: ['collector', 'rdo', 'bdo', 'tahsildar', 'hod'],
     badge: 96,

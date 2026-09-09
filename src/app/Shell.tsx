@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Icon } from '../components/Icon'
-import { useI18n } from '../i18n'
+import { bi, useI18n } from '../i18n'
 import { ui, roles as roleNames } from '../i18n/ui'
-import { EMBLEM_SRC, PORTRAIT_FACE_CROP } from '../data/portal'
+import { EMBLEM_SRC, PORTRAIT_FACE_CROP, PORTRAIT_SRC } from '../data/portal'
 import { ITEMS as ACTION_ITEMS } from '../data/actions'
 import { searchAll } from '../data/search'
 import { GROUP_ORDER, ROLE_SCOPE, type RoleId, type SectionId } from './sections'
@@ -266,6 +266,105 @@ function Search() {
 }
 
 /* ------------------------------------------------------------------ *
+ * Profile — the chip opens the official portrait; clicking anywhere
+ * outside it, or pressing Escape, closes it again.
+ * ------------------------------------------------------------------ */
+
+function ProfileMenu() {
+  const { t } = useI18n()
+  const { role } = useApp()
+  const [open, setOpen] = useState(false)
+  const boxRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onDown = (event: MouseEvent) => {
+      if (!boxRef.current?.contains(event.target as Node)) setOpen(false)
+    }
+    const onKey = (event: KeyboardEvent) => event.key === 'Escape' && setOpen(false)
+    document.addEventListener('mousedown', onDown)
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDown)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  return (
+    <div ref={boxRef} className="relative shrink-0">
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        aria-haspopup="dialog"
+        title={t(ui.collector)}
+        className={`flex shrink-0 items-center gap-2 rounded py-0.5 pr-1 pl-0.5 text-left transition-colors hover:bg-white/12 ${
+          open ? 'bg-white/12' : ''
+        }`}
+      >
+        <span
+          role="img"
+          aria-label={t(ui.collector)}
+          style={PORTRAIT_FACE_CROP}
+          className="h-9 w-9 shrink-0 rounded-full ring-2 ring-secondary-fixed-dim/70 ring-offset-1 ring-offset-[#4d040d]"
+        />
+        <span className="hidden flex-col leading-tight 2xl:flex">
+          <span className="font-label-sm text-label-sm font-bold text-white">
+            {t(ui.collector)}
+          </span>
+          <span className="font-label-sm text-[0.625rem] text-white/60">
+            {t(ui.collectorRole)}
+          </span>
+        </span>
+        <Icon name="expand_more" className="hidden shrink-0 text-base text-white/55 2xl:block" />
+      </button>
+
+      {open && (
+        <div
+          role="dialog"
+          aria-label={t(ui.collector)}
+          className="absolute top-12 right-0 z-50 w-72 overflow-hidden rounded-lg border border-hairline bg-surface-container-lowest shadow-2xl"
+        >
+          <img
+            src={PORTRAIT_SRC}
+            alt={t(ui.collector)}
+            className="block aspect-[4/3] w-full object-cover object-top"
+          />
+          <div className="flex flex-col gap-2 p-3">
+            <div>
+              <p className="font-label-md text-label-md font-bold text-on-surface">
+                {t(ui.collector)}
+              </p>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">
+                {t(ui.collectorRole)}
+              </p>
+            </div>
+            <dl className="flex flex-col gap-1 border-t border-hairline pt-2">
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="font-label-sm text-label-sm text-on-surface-variant">
+                  {t(ui.role)}
+                </dt>
+                <dd className="font-label-sm text-label-sm font-bold text-on-surface">
+                  {t(roleNames[role])}
+                </dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="font-label-sm text-label-sm text-on-surface-variant">
+                  {t(bi('Jurisdiction', 'எல்லை'))}
+                </dt>
+                <dd className="font-label-sm text-label-sm font-bold text-on-surface">
+                  {t(ROLE_SCOPE[role])}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ *
  * Shell
  * ------------------------------------------------------------------ */
 
@@ -385,25 +484,7 @@ export function Shell({ children }: { children: ReactNode }) {
 
           <Divider />
 
-          <button
-            type="button"
-            className="flex shrink-0 items-center gap-2 rounded py-0.5 pr-1 pl-0.5 text-left transition-colors hover:bg-white/12"
-          >
-            <span
-              role="img"
-              aria-label={t(ui.collector)}
-              style={PORTRAIT_FACE_CROP}
-              className="h-9 w-9 shrink-0 rounded-full ring-2 ring-secondary-fixed-dim/70 ring-offset-1 ring-offset-[#4d040d]"
-            />
-            <span className="hidden flex-col leading-tight 2xl:flex">
-              <span className="font-label-sm text-label-sm font-bold text-white">
-                {t(ui.collector)}
-              </span>
-              <span className="font-label-sm text-[0.625rem] text-white/60">
-                {t(ui.collectorRole)}
-              </span>
-            </span>
-          </button>
+          <ProfileMenu />
         </div>
       </header>
 

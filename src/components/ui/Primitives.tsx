@@ -32,7 +32,7 @@ export function PanelHead({
   actions,
 }: {
   title: Bi
-  note?: Bi
+  note?: Bi | string
   icon?: string
   actions?: ReactNode
 }) {

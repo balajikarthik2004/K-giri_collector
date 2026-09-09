@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { bi, num, pct, useI18n, type Bi } from '../i18n'
+import { ui } from '../i18n/ui'
 import { PageHead } from '../components/ui/PageHead'
 import { Panel, PanelHead, Segmented, Stat, StatGrid, Status } from '../components/ui/Primitives'
 import { Donut, Heatmap } from '../components/ui/Charts'
@@ -31,6 +32,9 @@ const DEPT_AGE: { label: Bi; values: number[] }[] = [
   { label: bi('Health', 'சுகாதாரம்'), values: [6, 3, 1, 3, 2] },
 ]
 
+/** Short day suffix, so a count reads the same in both languages. */
+const DAY_SHORT = bi('d', 'நா')
+
 const AGE_COLS: Bi[] = [
   bi('0–7 d', '0–7 நா'),
   bi('8–15 d', '8–15 நா'),
@@ -51,13 +55,13 @@ export function GrievancesPage() {
   const over30 = CHANNELS.reduce((sum, c) => sum + c.over30, 0)
 
   const channelColumns: Column<(typeof CHANNELS)[number]>[] = [
-    { key: 'ch', head: bi('Channel', 'வழி'), text: (row) => t(row.label) },
-    { key: 'rec', head: bi('Received', 'பெறப்பட்டது'), align: 'right', text: (row) => num(row.received) },
-    { key: 'dis', head: bi('Disposed', 'தீர்வு'), align: 'right', text: (row) => num(row.disposed) },
-    { key: 'pen', head: bi('Pending', 'நிலுவை'), align: 'right', text: (row) => num(row.pending) },
+    { key: 'ch', head: bi('How it came in', 'எப்படி வந்தது'), text: (row) => t(row.label) },
+    { key: 'rec', head: bi('Received', 'வந்தவை'), align: 'right', text: (row) => num(row.received) },
+    { key: 'dis', head: bi('Solved', 'தீர்க்கப்பட்டவை'), align: 'right', text: (row) => num(row.disposed) },
+    { key: 'pen', head: bi('Still open', 'நிலுவையில்'), align: 'right', text: (row) => num(row.pending) },
     {
       key: 'over',
-      head: bi('Beyond 30 days', '30 நாட்களுக்கு மேல்'),
+      head: bi('Over 30 days', '30 நாளுக்கு மேல்'),
       align: 'right',
       text: (row) => num(row.over30),
       render: (row) => (
@@ -66,7 +70,7 @@ export function GrievancesPage() {
     },
     {
       key: 'rate',
-      head: bi('Disposal', 'தீர்வு விகிதம்'),
+      head: bi('% solved', '% தீர்க்கப்பட்டது'),
       align: 'right',
       text: (row) => pct((row.disposed / row.received) * 100),
       minor: true,
@@ -76,7 +80,7 @@ export function GrievancesPage() {
   const petitionColumns: Column<Petition>[] = [
     {
       key: 'subject',
-      head: bi('Petition', 'மனு'),
+      head: bi('Complaint', 'புகார்'),
       text: (row) => t(row.subject),
       render: (row) => (
         <span className="flex flex-col">
@@ -87,50 +91,53 @@ export function GrievancesPage() {
         </span>
       ),
     },
-    { key: 'pet', head: bi('Petitioner', 'மனுதாரர்'), text: (row) => `${row.petitioner} · ${row.mobile}` },
+    { key: 'pet', head: bi('Who complained', 'புகார் அளித்தவர்'), text: (row) => `${row.petitioner} · ${row.mobile}` },
     { key: 'village', head: bi('Village', 'கிராமம்'), text: (row) => t(row.village), minor: true },
     { key: 'dept', head: bi('Department', 'துறை'), text: (row) => t(row.dept) },
     {
       key: 'age',
-      head: bi('Age', 'காலம்'),
+      head: bi('Waiting', 'காத்திருப்பு'),
       align: 'right',
-      text: (row) => `${row.age} d`,
+      text: (row) => `${row.age} ${t(DAY_SHORT)}`,
       render: (row) => (
-        <Status tone={row.age > 60 ? 'critical' : row.age > 45 ? 'serious' : 'warning'} label={`${row.age} d`} />
+        <Status
+          tone={row.age > 60 ? 'critical' : row.age > 45 ? 'serious' : 'warning'}
+          label={`${row.age} ${t(DAY_SHORT)}`}
+        />
       ),
     },
-    { key: 'officer', head: bi('With officer', 'அலுவலரிடம்'), text: (row) => row.officer },
+    { key: 'officer', head: bi('Who has it', 'யாரிடம் உள்ளது'), text: (row) => row.officer },
   ]
 
   return (
     <div className="flex flex-col gap-4">
       <PageHead
-        title={bi('Grievances & CM cell', 'மனுக்கள் & முதல்வர் தனிப்பிரிவு')}
-        note={bi('All channels · disposal and ageing', 'அனைத்து வழிகள் · தீர்வு மற்றும் காலநிலை')}
+        title={bi('Public complaints', 'பொது மக்கள் புகார்கள்')}
+        note={bi('Every way a complaint reaches us, and how fast we close it', 'புகார் வரும் எல்லா வழிகளும், எவ்வளவு விரைவில் முடிக்கிறோம் என்பதும்')}
         icon="mark_email_unread"
       />
 
       <StatGrid>
-        <Stat label={bi('Received (FY)', 'பெறப்பட்டது (நிதியாண்டு)')} value={num(received)} />
-        <Stat label={bi('Disposed', 'தீர்வு')} value={num(disposed)} delta={pct((disposed / received) * 100)} deltaTone="good" meter={(disposed / received) * 100} meterTone="good" />
-        <Stat label={bi('Pending', 'நிலுவை')} value={num(pending)} deltaTone="bad" />
-        <Stat label={bi('Beyond 30 days', '30 நாட்களுக்கு மேல்')} value={num(over30)} delta={t(bi('Collector review', 'ஆட்சியர் ஆய்வு'))} deltaTone="bad" />
-        <Stat label={bi('Avg disposal time', 'சராசரி தீர்வு காலம்')} value="11.4" unit={t(bi('days', 'நாட்கள்'))} delta="-2.1" deltaTone="good" />
+        <Stat label={bi('Received this year', 'இந்த ஆண்டு வந்தவை')} value={num(received)} />
+        <Stat label={bi('Solved', 'தீர்க்கப்பட்டவை')} value={num(disposed)} delta={pct((disposed / received) * 100)} deltaTone="good" meter={(disposed / received) * 100} meterTone="good" />
+        <Stat label={bi('Still open', 'இன்னும் நிலுவையில்')} value={num(pending)} deltaTone="bad" />
+        <Stat label={bi('Waiting over 30 days', '30 நாளுக்கு மேல் காத்திருப்பு')} value={num(over30)} delta={t(bi('Collector review', 'ஆட்சியர் ஆய்வு'))} deltaTone="bad" />
+        <Stat label={bi('Average time to solve', 'தீர்க்க ஆகும் சராசரி நாட்கள்')} value="11.4" unit={t(bi('days', 'நாட்கள்'))} delta="-2.1" deltaTone="good" />
       </StatGrid>
 
       <div className="grid gap-4 xl:grid-cols-3">
         <Panel className="xl:col-span-2">
           <PanelHead
             icon="grid_view"
-            title={bi('Ageing by department', 'துறைவாரி காலநிலை')}
-            note={bi('Pending petitions in each age bucket', 'ஒவ்வொரு கால அடுக்கிலும் நிலுவை மனுக்கள்')}
+            title={bi('How long people have waited', 'மக்கள் எவ்வளவு நாள் காத்திருக்கிறார்கள்')}
+            note={bi('Open complaints, by department and waiting time', 'நிலுவைப் புகார்கள், துறை மற்றும் காத்திருப்பு நேரம் வாரியாக')}
             actions={
               <Segmented
                 value={view}
                 onChange={setView}
                 options={[
-                  { value: 'age', label: bi('Ageing', 'காலநிலை') },
-                  { value: 'channel', label: bi('Channel', 'வழி') },
+                  { value: 'age', label: bi('Waiting time', 'காத்திருப்பு') },
+                  { value: 'channel', label: bi('How it came in', 'எப்படி வந்தது') },
                 ]}
               />
             }
@@ -139,7 +146,7 @@ export function GrievancesPage() {
             <Heatmap
               rows={DEPT_AGE}
               columns={AGE_COLS}
-              legend={bi('Fewer → more pending', 'குறைவு → அதிக நிலுவை')}
+              legend={bi('Fewer → more still open', 'குறைவு → அதிக நிலுவை')}
             />
           ) : (
             <DataTable
@@ -155,12 +162,12 @@ export function GrievancesPage() {
         <Panel>
           <PanelHead
             icon="donut_small"
-            title={bi('Pending by channel', 'வழிவாரி நிலுவை')}
+            title={bi('Still open, by how it came in', 'நிலுவை — வந்த வழி வாரியாக')}
             note={bi('Live count', 'நேரலை எண்ணிக்கை')}
           />
           <Donut
             centerValue={num(pending)}
-            centerLabel={bi('pending', 'நிலுவை')}
+            centerLabel={bi('still open', 'நிலுவை')}
             data={[
               { label: bi('Grievance Day', 'மனுநீதி நாள்'), value: 142 },
               { label: bi('CM Cell', 'முதல்வர் பிரிவு'), value: 141 },
@@ -172,7 +179,7 @@ export function GrievancesPage() {
               {t(bi('Today at Grievance Day', 'இன்று மனுநீதி நாளில்'))}
             </p>
             <p className="font-headline-sm text-headline-sm font-bold text-on-surface">
-              380 {t(bi('petitions queued', 'மனுக்கள் வரிசையில்'))}
+              380 {t(bi('people waiting', 'பேர் காத்திருக்கிறார்கள்'))}
             </p>
             <p className="font-body-sm text-body-sm text-on-surface-variant">
               {t(bi('Officers: DRO, PA (General), all 7 Tahsildars', 'அலுவலர்கள்: மா.வ.அ, தனி உதவியாளர், 7 வட்டாட்சியர்கள்'))}
@@ -184,8 +191,8 @@ export function GrievancesPage() {
       <Panel>
         <PanelHead
           icon="assignment_late"
-          title={bi('Oldest pending petitions', 'மிக நீண்ட நிலுவை மனுக்கள்')}
-          note={bi('Open a row for petitioner contact and the officer holding it', 'மனுதாரர் தொடர்பு மற்றும் அலுவலர் விவரத்திற்கு வரிசையைத் திறக்கவும்')}
+          title={bi('Waiting the longest', 'மிக நீண்ட நாள் காத்திருப்பவை')}
+          note={bi('Open a row for their phone number and the officer holding it', 'அவர்களின் தொலைபேசி எண் மற்றும் அலுவலர் விவரத்திற்கு வரிசையைத் திறக்கவும்')}
         />
         <DataTable
           columns={petitionColumns}
@@ -197,19 +204,19 @@ export function GrievancesPage() {
               title: t(row.subject),
               ref: row.id,
               tone: row.age > 60 ? 'critical' : 'serious',
-              status: `${row.age} ${t(bi('days pending', 'நாட்கள் நிலுவை'))}`,
+              status: `${t(bi('Waiting', 'காத்திருப்பு'))} ${row.age} ${t(ui.days)}`,
               facts: [
-                { label: bi('Petitioner', 'மனுதாரர்'), value: row.petitioner },
+                { label: bi('Who complained', 'புகார் அளித்தவர்'), value: row.petitioner },
                 { label: bi('Mobile', 'கைபேசி'), value: row.mobile },
                 { label: bi('Village', 'கிராமம்'), value: t(row.village) },
                 { label: bi('Department', 'துறை'), value: t(row.dept) },
-                { label: bi('Channel', 'வழி'), value: t(row.channel) },
-                { label: bi('Age', 'காலம்'), value: `${row.age} days` },
+                { label: bi('How it came in', 'எப்படி வந்தது'), value: t(row.channel) },
+                { label: bi('Waiting', 'காத்திருப்பு'), value: `${row.age} ${t(ui.days)}` },
               ],
               officer: { name: row.officer, designation: row.designation, phone: row.phone },
               audit: { updated: '24 Oct 07:05', by: 'Grievance monitoring cell', source: SRC.cmcell },
               actions: [
-                { label: bi('Fix deadline', 'காலக்கெடு நிர்ணயி'), icon: 'schedule', variant: 'accent' },
+                { label: bi('Set a deadline', 'காலக்கெடு நிர்ணயி'), icon: 'schedule', variant: 'accent' },
                 { label: bi('Escalate', 'மேல்முறையீடு'), icon: 'trending_up' },
               ],
             })

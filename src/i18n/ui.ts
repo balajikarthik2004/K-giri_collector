@@ -9,7 +9,7 @@ export const ui = {
 
   briefingDate: bi('24 Oct 2024 · Thu', 'அக் 24, 2024 · வியாழன்'),
 
-  search: bi('File no, petitioner, survey no, village, officer…', 'கோப்பு எண், மனுதாரர், புல எண், கிராமம், அலுவலர்…'),
+  search: bi('File no, name, survey no, village, officer…', 'கோப்பு எண், பெயர், புல எண், கிராமம், அலுவலர்…'),
   searchShort: bi('Search', 'தேடு'),
   noResults: bi('No matching records', 'பொருந்தும் பதிவுகள் இல்லை'),
 
@@ -27,7 +27,7 @@ export const ui = {
   menu: bi('Menu', 'பட்டி'),
   sign: bi('Sign', 'கையொப்பம்'),
   approve: bi('Approve', 'ஒப்புதல்'),
-  escalate: bi('Escalate', 'மேல்முறையீடு'),
+  escalate: bi('Send up', 'மேலிடத்திற்கு அனுப்பு'),
   showTable: bi('Table view', 'அட்டவணைக் காட்சி'),
   showChart: bi('Chart view', 'வரைபடக் காட்சி'),
 

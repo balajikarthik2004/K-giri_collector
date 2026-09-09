@@ -153,7 +153,7 @@ export function AgriculturePage() {
       <StatGrid>
         <Stat label={bi('Season rainfall', 'பருவ மழை')} value="412" unit="mm" delta="+8%" deltaTone="good" />
         <Stat label={bi('Sown area', 'விதைப்புப் பரப்பு')} value={num(101400)} unit="ha" delta="97.5%" deltaTone="good" meter={97.5} meterTone="good" />
-        <Stat label={bi('Mango area', 'மாந்தோப்பு பரப்பு')} value={num(38400)} unit="ha" footnote={bi('Totapuri & Alphonso belt', 'தோதாபுரி & அல்போன்சா பகுதி')} />
+        <Stat label={bi('Mango area', 'மாந்தோப்பு பரப்பு')} value={num(38400)} unit="ha" footnote={bi('Totapuri & Neelam belt', 'தோதாபுரி & நீலம் பகுதி')} />
         <Stat label={bi('Crop insurance enrolled', 'பயிர் காப்பீடு')} value={num(62840)} delta="71.4%" deltaTone="bad" meter={71.4} meterTone="warning" />
         <Stat label={bi('Drought declarations pending', 'வறட்சி அறிவிப்பு நிலுவை')} value="2" delta={t(bi('blocks', 'ஒன்றியம்'))} deltaTone="bad" />
       </StatGrid>

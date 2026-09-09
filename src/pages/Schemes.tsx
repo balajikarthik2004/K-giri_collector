@@ -145,7 +145,7 @@ export function SchemesPage() {
                   { label: bi('Aadhaar gaps', 'ஆதார் இடைவெளி'), value: num(row.aadhaarGap) },
                   { label: bi('Blocks covered', 'ஒன்றியங்கள்'), value: '10 / 10' },
                   { label: bi('Last disbursement', 'கடைசி வழங்கல்'), value: '23 Oct 2024' },
-                  { label: bi('Grievances open', 'நிலுவை மனுக்கள்'), value: '48' },
+                  { label: bi('Complaints open', 'நிலுவைப் புகார்கள்'), value: '48' },
                 ],
                 officer: { name: 'D. Priya', designation: DESIG.dswo, phone: '+914343240011' },
                 audit: { updated: '24 Oct 06:00', by: 'PFMS reconciliation', source: SRC.dbt },

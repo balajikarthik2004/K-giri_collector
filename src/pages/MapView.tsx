@@ -14,7 +14,7 @@ type Level = 'taluk' | 'block' | 'panchayat' | 'ward'
 type Metric = 'grievances' | 'patta' | 'water' | 'dbt'
 
 const METRICS: { value: Metric; label: Bi; unit: Bi }[] = [
-  { value: 'grievances', label: bi('Pending grievances', 'நிலுவை மனுக்கள்'), unit: bi('petitions', 'மனுக்கள்') },
+  { value: 'grievances', label: bi('Complaints still open', 'நிலுவைப் புகார்கள்'), unit: bi('complaints', 'புகார்கள்') },
   { value: 'patta', label: bi('Patta pendency', 'பட்டா நிலுவை'), unit: bi('files', 'கோப்புகள்') },
   { value: 'water', label: bi('Water shortfall', 'குடிநீர் பற்றாக்குறை'), unit: bi('habitations', 'குடியிருப்புகள்') },
   { value: 'dbt', label: bi('DBT failures', 'நேரடி நிதி தோல்வி'), unit: bi('records', 'பதிவுகள்') },
