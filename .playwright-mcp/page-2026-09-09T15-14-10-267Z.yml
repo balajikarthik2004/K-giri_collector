@@ -1,0 +1,325 @@
+- generic [ref=f8e3]:
+  - banner [ref=f8e4]:
+    - button "Krishnagiri District Collectorate Command Portal" [ref=f8e6]:
+      - generic [ref=f8e7]:
+        - generic [ref=f8e8]: Krishnagiri District
+        - generic [ref=f8e9]: Collectorate Command Portal
+    - generic [ref=f8e10]:
+      - generic [aria-hidden]: search
+      - searchbox "Search" [ref=f8e11]
+      - generic: ⌘K
+    - generic [ref=f8e12]:
+      - generic [ref=f8e13]:
+        - generic [ref=f8e14]: 20:44 IST
+        - generic [ref=f8e15]: 24 Oct 2024 · Thu
+      - generic [ref=f8e18]:
+        - generic [aria-hidden] [ref=f8e19]: switch_account
+        - generic [ref=f8e20]:
+          - generic [ref=f8e21]: Collector
+          - generic [ref=f8e22]: Krishnagiri district
+        - generic [aria-hidden] [ref=f8e23]: expand_more
+        - combobox "Role" [ref=f8e24] [cursor=pointer]:
+          - option "Collector" [selected]
+          - option "RDO"
+          - option "BDO"
+          - option "Tahsildar"
+          - option "Dept. head"
+      - generic [ref=f8e25]:
+        - button "தமிழ்" [ref=f8e26]
+        - button "EN" [ref=f8e27]
+      - button "Action queue" [ref=f8e29]:
+        - generic [aria-hidden] [ref=f8e30]: notifications
+        - generic [ref=f8e31]: "8"
+      - button "Thiru C. Dinesh Kumar, IAS Thiru C. Dinesh Kumar, IAS District Collector & Magistrate" [ref=f8e33]:
+        - img "Thiru C. Dinesh Kumar, IAS" [ref=f8e34]
+        - generic [ref=f8e35]:
+          - generic [ref=f8e36]: Thiru C. Dinesh Kumar, IAS
+          - generic [ref=f8e37]: District Collector & Magistrate
+  - complementary [ref=f8e38]:
+    - navigation [ref=f8e39]:
+      - generic [ref=f8e40]:
+        - paragraph [ref=f8e41]: Command
+        - button "My day" [ref=f8e42]:
+          - generic [aria-hidden] [ref=f8e43]: overview
+        - button "Action queue 8" [ref=f8e45]:
+          - generic [aria-hidden] [ref=f8e46]: priority_high
+          - generic [ref=f8e47]: Action queue
+          - generic [ref=f8e48]: "8"
+        - button "Map & drill-down" [ref=f8e49]:
+          - generic [aria-hidden] [ref=f8e50]: map
+      - generic [ref=f8e52]:
+        - paragraph [ref=f8e53]: Administration
+        - button "Revenue & land 214" [ref=f8e54]:
+          - generic [aria-hidden] [ref=f8e55]: real_estate_agent
+          - generic [ref=f8e56]: Revenue & land
+          - generic [ref=f8e57]: "214"
+        - button "Grievances & CM cell 96" [ref=f8e58]:
+          - generic [aria-hidden] [ref=f8e59]: mark_email_unread
+          - generic [ref=f8e60]: Grievances & CM cell
+          - generic [ref=f8e61]: "96"
+        - button "Finance & audit" [ref=f8e62]:
+          - generic [aria-hidden] [ref=f8e63]: account_balance_wallet
+        - button "Staff & attendance" [ref=f8e65]:
+          - generic [aria-hidden] [ref=f8e66]: badge
+        - button "Elections & civic" [ref=f8e68]:
+          - generic [aria-hidden] [ref=f8e69]: how_to_vote
+      - generic [ref=f8e71]:
+        - paragraph [ref=f8e72]: Development
+        - button "Schemes & DBT" [ref=f8e73]:
+          - generic [aria-hidden] [ref=f8e74]: volunteer_activism
+        - button "Agriculture & water" [ref=f8e76]:
+          - generic [aria-hidden] [ref=f8e77]: agriculture
+        - button "Industry & jobs" [ref=f8e79]:
+          - generic [aria-hidden] [ref=f8e80]: factory
+        - button "Water & infrastructure" [ref=f8e82]:
+          - generic [aria-hidden] [ref=f8e83]: water_drop
+      - generic [ref=f8e85]:
+        - paragraph [ref=f8e86]: Human development
+        - button "Health" [ref=f8e87]:
+          - generic [aria-hidden] [ref=f8e88]: local_hospital
+        - button "Education" [ref=f8e90]:
+          - generic [aria-hidden] [ref=f8e91]: school
+      - generic [ref=f8e93]:
+        - paragraph [ref=f8e94]: Safety
+        - button "Law, order & disaster" [ref=f8e95]:
+          - generic [aria-hidden] [ref=f8e96]: shield
+    - link "1077" [ref=f8e99] [cursor=pointer]:
+      - /url: tel:1077
+      - generic [aria-hidden] [ref=f8e100]: emergency
+      - text: "1077"
+  - main [ref=f8e102]:
+    - generic [ref=f8e103]:
+      - generic [ref=f8e104]:
+        - generic [ref=f8e105]:
+          - generic [aria-hidden] [ref=f8e107]: map
+          - generic [ref=f8e108]:
+            - heading "Map & drill-down" [level=1] [ref=f8e109]
+            - paragraph [ref=f8e110]: Any metric, any level, down to the officer responsible
+        - tablist [ref=f8e112]:
+          - tab "Pending grievances" [selected] [ref=f8e113]
+          - tab "Patta pendency" [ref=f8e114]
+          - tab "Water shortfall" [ref=f8e115]
+          - tab "DBT failures" [ref=f8e116]
+      - generic [ref=f8e117]:
+        - generic [ref=f8e119]:
+          - generic [aria-hidden] [ref=f8e121]: map
+          - generic [ref=f8e122]:
+            - heading "Krishnagiri district — by taluk" [level=2] [ref=f8e123]
+            - paragraph [ref=f8e124]: Tap a taluk for the officer holding it
+        - paragraph [ref=f8e125]:
+          - text: "Pending grievances: 557 petitions across the district. Highest —"
+          - generic [ref=f8e126]: Hosur (149)
+          - text: .
+        - generic [ref=f8e127]:
+          - img "Krishnagiri district, shaded by taluk" [ref=f8e129]:
+            - generic [ref=f8e130]:
+              - generic "Krishnagiri — 111 petitions" [ref=f8e131] [cursor=pointer]
+              - generic "Hosur — 149 petitions" [ref=f8e132] [cursor=pointer]
+              - generic "Denkanikottai — 71 petitions" [ref=f8e133] [cursor=pointer]
+              - generic "Pochampalli — 54 petitions" [ref=f8e134] [cursor=pointer]
+              - generic "Uthangarai — 50 petitions" [ref=f8e135] [cursor=pointer]
+              - generic "Bargur — 43 petitions" [ref=f8e136] [cursor=pointer]
+              - generic "Shoolagiri — 79 petitions" [ref=f8e137] [cursor=pointer]
+            - generic:
+              - generic:
+                - generic:
+                  - generic: Krishnagiri
+                  - generic: "111"
+                - generic:
+                  - generic: Krishnagiri
+                  - generic: "111"
+              - generic:
+                - generic:
+                  - generic: Hosur
+                  - generic: "149"
+                - generic:
+                  - generic: Hosur
+                  - generic: "149"
+              - generic:
+                - generic:
+                  - generic: Denkanikottai
+                  - generic: "71"
+                - generic:
+                  - generic: Denkanikottai
+                  - generic: "71"
+              - generic:
+                - generic:
+                  - generic: Pochampalli
+                  - generic: "54"
+                - generic:
+                  - generic: Pochampalli
+                  - generic: "54"
+              - generic:
+                - generic:
+                  - generic: Uthangarai
+                  - generic: "50"
+                - generic:
+                  - generic: Uthangarai
+                  - generic: "50"
+              - generic:
+                - generic:
+                  - generic: Bargur
+                  - generic: "43"
+                - generic:
+                  - generic: Bargur
+                  - generic: "43"
+              - generic:
+                - generic:
+                  - generic: Shoolagiri
+                  - generic: "79"
+                - generic:
+                  - generic: Shoolagiri
+                  - generic: "79"
+          - generic [ref=f8e138]:
+            - generic [ref=f8e139]:
+              - text: "43"
+              - generic [ref=f8e140]:
+                - generic "43–58" [ref=f8e141]
+                - generic "58–73" [ref=f8e142]
+                - generic "73–88" [ref=f8e143]
+                - generic "88–104" [ref=f8e144]
+                - generic "104–119" [ref=f8e145]
+                - generic "119–134" [ref=f8e146]
+                - generic "134–149" [ref=f8e147]
+              - text: 149 petitions
+            - generic [ref=f8e148]:
+              - generic [ref=f8e149]: Town
+              - generic [ref=f8e151]: Krishnagiri & Hosur
+        - paragraph [ref=f8e153]: 7 taluks · 10 blocks · 337 panchayats · NH-44 runs Hosur–Krishnagiri
+      - generic [ref=f8e154]:
+        - generic [ref=f8e155]:
+          - generic [ref=f8e156]:
+            - generic [aria-hidden] [ref=f8e158]: grid_view
+            - generic [ref=f8e159]:
+              - heading "Pending grievances" [level=2] [ref=f8e160]
+              - paragraph [ref=f8e161]: Darker means more pending · tiles add up to the district total
+          - tablist [ref=f8e163]:
+            - tab "Taluk" [selected] [ref=f8e164]
+            - tab "Block" [ref=f8e165]
+            - tab "Panchayat" [ref=f8e166]
+            - tab "Ward" [ref=f8e167]
+        - list [ref=f8e168]:
+          - listitem [ref=f8e169]:
+            - button "Krishnagiri 111 K. Sekar" [ref=f8e170]:
+              - generic [ref=f8e171]: Krishnagiri
+              - generic [ref=f8e172]: "111"
+              - generic [ref=f8e173]: K. Sekar
+          - listitem [ref=f8e174]:
+            - button "Hosur 149 M. Anbarasi" [ref=f8e175]:
+              - generic [ref=f8e176]: Hosur
+              - generic [ref=f8e177]: "149"
+              - generic [ref=f8e178]: M. Anbarasi
+          - listitem [ref=f8e179]:
+            - button "Denkanikottai 71 R. Vinoth" [ref=f8e180]:
+              - generic [ref=f8e181]: Denkanikottai
+              - generic [ref=f8e182]: "71"
+              - generic [ref=f8e183]: R. Vinoth
+          - listitem [ref=f8e184]:
+            - button "Pochampalli 54 S. Kavitha" [ref=f8e185]:
+              - generic [ref=f8e186]: Pochampalli
+              - generic [ref=f8e187]: "54"
+              - generic [ref=f8e188]: S. Kavitha
+          - listitem [ref=f8e189]:
+            - button "Uthangarai 50 G. Murugan" [ref=f8e190]:
+              - generic [ref=f8e191]: Uthangarai
+              - generic [ref=f8e192]: "50"
+              - generic [ref=f8e193]: G. Murugan
+          - listitem [ref=f8e194]:
+            - button "Bargur 43 A. Jothi" [ref=f8e195]:
+              - generic [ref=f8e196]: Bargur
+              - generic [ref=f8e197]: "43"
+              - generic [ref=f8e198]: A. Jothi
+          - listitem [ref=f8e199]:
+            - button "Shoolagiri 79 P. Devi" [ref=f8e200]:
+              - generic [ref=f8e201]: Shoolagiri
+              - generic [ref=f8e202]: "79"
+              - generic [ref=f8e203]: P. Devi
+        - generic [ref=f8e204]: LowHigh
+      - generic [ref=f8e213]:
+        - generic [ref=f8e214]:
+          - generic [ref=f8e215]:
+            - generic [aria-hidden] [ref=f8e217]: list
+            - generic [ref=f8e218]:
+              - heading "Same data as a list" [level=2] [ref=f8e219]
+              - paragraph [ref=f8e220]: Sortable, searchable, exportable
+          - generic [ref=f8e222]:
+            - generic [aria-hidden] [ref=f8e223]: touch_app
+            - text: Drill down
+        - generic [ref=f8e224]:
+          - generic [ref=f8e225]:
+            - generic [ref=f8e226]:
+              - generic [aria-hidden]: search
+              - textbox "Search" [ref=f8e227]
+            - button "Export CSV" [ref=f8e228]:
+              - generic [aria-hidden] [ref=f8e229]: download
+          - table [ref=f8e232]:
+            - rowgroup [ref=f8e233]:
+              - row [ref=f8e234]:
+                - columnheader "Unit" [ref=f8e235]
+                - columnheader "Pending grievances" [ref=f8e236]
+                - columnheader "Responsible officer" [ref=f8e237]
+                - columnheader [ref=f8e238]
+            - rowgroup [ref=f8e239]:
+              - row [ref=f8e240] [cursor=pointer]:
+                - cell "Krishnagiri" [ref=f8e241]
+                - cell [ref=f8e242]:
+                  - generic [ref=f8e243]:
+                    - generic [aria-hidden] [ref=f8e244]: error
+                    - text: "111"
+                - cell "K. Sekar" [ref=f8e245]
+                - cell [ref=f8e246]:
+                  - generic [aria-hidden] [ref=f8e247]: chevron_right
+              - row [ref=f8e248] [cursor=pointer]:
+                - cell "Hosur" [ref=f8e249]
+                - cell [ref=f8e250]:
+                  - generic [ref=f8e251]:
+                    - generic [aria-hidden] [ref=f8e252]: dangerous
+                    - text: "149"
+                - cell "M. Anbarasi" [ref=f8e253]
+                - cell [ref=f8e254]:
+                  - generic [aria-hidden] [ref=f8e255]: chevron_right
+              - row [ref=f8e256] [cursor=pointer]:
+                - cell "Denkanikottai" [ref=f8e257]
+                - cell [ref=f8e258]:
+                  - generic [ref=f8e259]:
+                    - generic [aria-hidden] [ref=f8e260]: error
+                    - text: "71"
+                - cell "R. Vinoth" [ref=f8e261]
+                - cell [ref=f8e262]:
+                  - generic [aria-hidden] [ref=f8e263]: chevron_right
+              - row [ref=f8e264] [cursor=pointer]:
+                - cell "Pochampalli" [ref=f8e265]
+                - cell [ref=f8e266]:
+                  - generic [ref=f8e267]:
+                    - generic [aria-hidden] [ref=f8e268]: check_circle
+                    - text: "54"
+                - cell "S. Kavitha" [ref=f8e269]
+                - cell [ref=f8e270]:
+                  - generic [aria-hidden] [ref=f8e271]: chevron_right
+              - row [ref=f8e272] [cursor=pointer]:
+                - cell "Uthangarai" [ref=f8e273]
+                - cell [ref=f8e274]:
+                  - generic [ref=f8e275]:
+                    - generic [aria-hidden] [ref=f8e276]: check_circle
+                    - text: "50"
+                - cell "G. Murugan" [ref=f8e277]
+                - cell [ref=f8e278]:
+                  - generic [aria-hidden] [ref=f8e279]: chevron_right
+              - row [ref=f8e280] [cursor=pointer]:
+                - cell "Bargur" [ref=f8e281]
+                - cell [ref=f8e282]:
+                  - generic [ref=f8e283]:
+                    - generic [aria-hidden] [ref=f8e284]: check_circle
+                    - text: "43"
+                - cell "A. Jothi" [ref=f8e285]
+                - cell [ref=f8e286]:
+                  - generic [aria-hidden] [ref=f8e287]: chevron_right
+              - row [ref=f8e288] [cursor=pointer]:
+                - cell "Shoolagiri" [ref=f8e289]
+                - cell [ref=f8e290]:
+                  - generic [ref=f8e291]:
+                    - generic [aria-hidden] [ref=f8e292]: error
+                    - text: "79"
+                - cell "P. Devi" [ref=f8e293]
+                - cell [ref=f8e294]:
+                  - generic [aria-hidden] [ref=f8e295]: chevron_right

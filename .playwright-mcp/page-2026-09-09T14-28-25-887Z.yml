@@ -1,0 +1,334 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "கிருஷ்ணகிரி மாவட்டம் ஆட்சியர் கட்டளை மையம்" [ref=e6]:
+      - generic [ref=e7]:
+        - generic [ref=e8]: கிருஷ்ணகிரி மாவட்டம்
+        - generic [ref=e9]: ஆட்சியர் கட்டளை மையம்
+    - generic [ref=e10]:
+      - generic [aria-hidden]: search
+      - searchbox "தேடு" [ref=e11]
+      - generic: ⌘K
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - generic [ref=e14]: 19:58 IST
+        - generic [ref=e15]: அக் 24, 2024 · வியாழன்
+      - generic [ref=e18]:
+        - generic [aria-hidden] [ref=e19]: switch_account
+        - generic [ref=e20]:
+          - generic [ref=e21]: ஆட்சியர்
+          - generic [ref=e22]: கிருஷ்ணகிரி மாவட்டம்
+        - generic [aria-hidden] [ref=e23]: expand_more
+        - combobox "பணியிடம்" [ref=e24] [cursor=pointer]:
+          - option "ஆட்சியர்" [selected]
+          - option "கோட்டாட்சியர்"
+          - option "ஒன்றிய அலுவலர்"
+          - option "வட்டாட்சியர்"
+          - option "துறைத் தலைவர்"
+      - generic [ref=e25]:
+        - button "தமிழ்" [ref=e26]
+        - button "EN" [ref=e27]
+      - button "நடவடிக்கைப் பட்டியல்" [ref=e29]:
+        - generic [aria-hidden] [ref=e30]: notifications
+        - generic [ref=e31]: "18"
+      - button "திரு சி. கதிரவன், இ.ஆ.ப. திரு சி. கதிரவன், இ.ஆ.ப. மாவட்ட ஆட்சித்தலைவர்" [ref=e33]:
+        - img "திரு சி. கதிரவன், இ.ஆ.ப." [ref=e34]
+        - generic [ref=e35]:
+          - generic [ref=e36]: திரு சி. கதிரவன், இ.ஆ.ப.
+          - generic [ref=e37]: மாவட்ட ஆட்சித்தலைவர்
+  - complementary [ref=e38]:
+    - navigation [ref=e39]:
+      - generic [ref=e40]:
+        - paragraph [ref=e41]: கட்டளை
+        - button "என் நாள்" [ref=e42]:
+          - generic [aria-hidden] [ref=e43]: overview
+        - button "நடவடிக்கைப் பட்டியல் 18" [ref=e45]:
+          - generic [aria-hidden] [ref=e46]: priority_high
+          - generic [ref=e47]: நடவடிக்கைப் பட்டியல்
+          - generic [ref=e48]: "18"
+        - button "வரைபடம் & விவரம்" [ref=e49]:
+          - generic [aria-hidden] [ref=e50]: map
+      - generic [ref=e52]:
+        - paragraph [ref=e53]: நிர்வாகம்
+        - button "வருவாய் & நிலம் 214" [ref=e54]:
+          - generic [aria-hidden] [ref=e55]: real_estate_agent
+          - generic: வருவாய் & நிலம்
+          - generic [ref=e56]: "214"
+        - button "மனுக்கள் & முதல்வர் பிரிவு 96" [ref=e57]:
+          - generic [aria-hidden] [ref=e58]: mark_email_unread
+          - generic: மனுக்கள் & முதல்வர் பிரிவு
+          - generic [ref=e59]: "96"
+        - button "நிதி & தணிக்கை" [ref=e60]:
+          - generic [aria-hidden] [ref=e61]: account_balance_wallet
+        - button "பணியாளர் & வருகை" [ref=e62]:
+          - generic [aria-hidden] [ref=e63]: badge
+        - button "தேர்தல் & குடிமை" [ref=e65]:
+          - generic [aria-hidden] [ref=e66]: how_to_vote
+      - generic [ref=e68]:
+        - paragraph [ref=e69]: வளர்ச்சி
+        - button "நலத்திட்டங்கள் & நேரடி பயன்" [ref=e70]:
+          - generic [aria-hidden] [ref=e71]: volunteer_activism
+        - button "வேளாண்மை & நீர்" [ref=e73]:
+          - generic [aria-hidden] [ref=e74]: agriculture
+        - button "தொழில் & வேலைவாய்ப்பு" [ref=e76]:
+          - generic [aria-hidden] [ref=e77]: factory
+        - button "குடிநீர் & உள்கட்டமைப்பு" [ref=e79]:
+          - generic [aria-hidden] [ref=e80]: water_drop
+      - generic [ref=e82]:
+        - paragraph [ref=e83]: மனித வளர்ச்சி
+        - button "சுகாதாரம்" [ref=e84]:
+          - generic [aria-hidden] [ref=e85]: local_hospital
+        - button "கல்வி" [ref=e87]:
+          - generic [aria-hidden] [ref=e88]: school
+      - generic [ref=e90]:
+        - paragraph [ref=e91]: பாதுகாப்பு
+        - button "சட்டம், ஒழுங்கு & பேரிடர்" [ref=e92]:
+          - generic [aria-hidden] [ref=e93]: shield
+    - generic [ref=e95]:
+      - button "ஆய்வுக் கோப்பு அச்சிடு" [ref=e96]:
+        - generic [aria-hidden] [ref=e97]: picture_as_pdf
+        - text: ஆய்வுக் கோப்பு அச்சிடு
+      - link "1077" [ref=e98] [cursor=pointer]:
+        - /url: tel:1077
+        - generic [aria-hidden] [ref=e99]: emergency
+        - text: "1077"
+  - main [ref=e101]:
+    - generic [ref=e102]:
+      - generic [ref=e103]:
+        - generic [ref=e104]:
+          - generic [aria-hidden] [ref=e106]: overview
+          - generic [ref=e107]:
+            - heading "என் நாள் — ஒரே பார்வையில்" [level=1] [ref=e108]
+            - paragraph [ref=e109]: அக்டோபர் 24, 2024 · வியாழன்
+        - generic [ref=e110]:
+          - button "கைபேசிக்கு அனுப்பு" [ref=e111]:
+            - generic [aria-hidden] [ref=e112]: smartphone
+          - button "ஆய்வுக் கோப்பு அச்சிடு" [ref=e113]:
+            - generic [aria-hidden] [ref=e114]: print
+      - generic [ref=e116]:
+        - button "என் கையொப்பத்திற்கு 14 6 அவசரம் இ-முத்ரா டோக்கன் இணைக்கப்பட்டது" [ref=e117] [cursor=pointer]:
+          - generic [ref=e119]: என் கையொப்பத்திற்கு
+          - generic [ref=e120]:
+            - generic [ref=e121]: "14"
+            - generic [ref=e122]: 6 அவசரம்
+          - generic [ref=e123]: இ-முத்ரா டோக்கன் இணைக்கப்பட்டது
+        - button "இரவில் மேல்முறையீடு 9 3 முதல்வர் பிரிவு" [ref=e124] [cursor=pointer]:
+          - generic [ref=e126]: இரவில் மேல்முறையீடு
+          - generic [ref=e127]:
+            - generic [ref=e128]: "9"
+            - generic [ref=e129]: 3 முதல்வர் பிரிவு
+        - button "கால வரம்பு மீறல் 59 இன்று +4" [ref=e130] [cursor=pointer]:
+          - generic [ref=e132]: கால வரம்பு மீறல்
+          - generic [ref=e133]:
+            - generic [ref=e134]: "59"
+            - generic [ref=e135]: இன்று +4
+        - generic [ref=e136]:
+          - generic [ref=e138]: இந்த வார நீதிமன்ற காலக்கெடு
+          - generic [ref=e139]: "3"
+          - generic [ref=e141]: 1 நாளை
+        - button "இன்று வழங்கிய நேரடி நிதி ₹14.82 Cr 99.4%" [ref=e142] [cursor=pointer]:
+          - generic [ref=e144]: இன்று வழங்கிய நேரடி நிதி
+          - generic [ref=e145]:
+            - generic [ref=e146]: ₹14.82
+            - generic [ref=e147]: Cr
+            - generic [ref=e148]: 99.4%
+      - generic [ref=e151]:
+        - generic [ref=e152]:
+          - generic [ref=e153]:
+            - generic [ref=e154]:
+              - generic [aria-hidden] [ref=e156]: event
+              - generic [ref=e157]:
+                - heading "இன்றைய நிகழ்ச்சி நிரல்" [level=2] [ref=e158]
+                - paragraph [ref=e159]: 4 நிகழ்வுகள் · 1 முன்னுரிமை
+            - button "நேரம் ஒதுக்கு" [ref=e161]:
+              - generic [aria-hidden] [ref=e162]: add
+          - list [ref=e164]:
+            - listitem [ref=e165]:
+              - generic [ref=e166]:
+                - text: 09:00
+                - generic [ref=e167]: –10:15
+              - generic [ref=e168]:
+                - generic [ref=e169]: கோப்பு அனுமதி — ஆட்சியர் அறை
+                - generic [ref=e170]: 14 கோப்புகள் கையொப்பத்திற்கு
+              - generic [ref=e171]:
+                - generic [aria-hidden] [ref=e172]: radio_button_unchecked
+                - text: மேசை
+            - listitem [ref=e173]:
+              - generic [ref=e174]:
+                - text: 10:30
+                - generic [ref=e175]: –13:00
+              - generic [ref=e176]:
+                - generic [ref=e177]: மனுநீதி நாள் — பொதுமக்கள் விசாரணை
+                - generic [ref=e178]: ஆட்சியர் அரங்கம் · 380 மனுக்கள்
+              - generic [ref=e179]:
+                - generic [aria-hidden] [ref=e180]: info
+                - text: பொது
+            - listitem [ref=e181]:
+              - generic [ref=e182]:
+                - text: 14:30
+                - generic [ref=e183]: –16:00
+              - generic [ref=e184]:
+                - generic [ref=e185]: தலைமைச் செயலாளர் காணொலிக் கூட்டம்
+                - generic [ref=e186]: ஜல் ஜீவன் திட்டம் · காலை உணவுத் திட்டம் கட்டம்-II
+              - generic [ref=e187]:
+                - generic [aria-hidden] [ref=e188]: dangerous
+                - text: முன்னுரிமை
+            - listitem [ref=e189]:
+              - generic [ref=e190]:
+                - text: 16:45
+                - generic [ref=e191]: –18:30
+              - generic [ref=e192]:
+                - generic [ref=e193]: சிப்காட் கட்டம்-III கள ஆய்வு
+                - generic [ref=e194]: மோரனப்பள்ளி, ஓசூர் வடக்கு
+              - generic [ref=e195]:
+                - generic [aria-hidden] [ref=e196]: radio_button_unchecked
+                - text: களம்
+        - generic [ref=e197]:
+          - generic [ref=e199]:
+            - generic [aria-hidden] [ref=e201]: rainy
+            - generic [ref=e202]:
+              - heading "வானிலை & மழையளவு" [level=2] [ref=e203]
+              - paragraph [ref=e204]: மாந்தோப்பு மற்றும் காவேரி பாசனப் பகுதி
+          - generic [ref=e205]:
+            - generic [ref=e206]:
+              - paragraph [ref=e207]: 28°C
+              - paragraph [ref=e208]: கிருஷ்ணகிரி தலைமையகம் · ஈரப்பதம்
+            - generic [ref=e209]:
+              - generic [aria-hidden] [ref=e210]: check_circle
+              - text: எச்சரிக்கை இல்லை
+          - generic [ref=e211]:
+            - generic [ref=e212]:
+              - paragraph [ref=e213]: இன்று
+              - paragraph [ref=e214]: 14.2 mm
+            - generic [ref=e215]:
+              - paragraph [ref=e216]: பருவம்
+              - paragraph [ref=e217]: 412 mm
+            - generic [ref=e218]:
+              - paragraph [ref=e219]: இயல்பை விட
+              - paragraph [ref=e220]: +8%
+          - paragraph [ref=e221]: கடந்த 7 நாட்கள் (மி.மீ)
+          - generic [ref=e226]:
+            - generic [ref=e228]:
+              - generic [ref=e229]: கெலவரப்பள்ளி
+              - generic [ref=e230]: 38.4 / 44 ft
+            - generic [ref=e234]:
+              - generic [ref=e235]: பர்கூர்
+              - generic [ref=e236]: 21.6 / 28 ft
+            - generic [ref=e240]:
+              - generic [ref=e241]: பாம்பாறு
+              - generic [ref=e242]: 9.8 / 16 ft
+      - generic [ref=e245]:
+        - generic [ref=e246]:
+          - generic [ref=e247]:
+            - generic [ref=e248]:
+              - generic [aria-hidden] [ref=e250]: notifications_active
+              - generic [ref=e251]:
+                - heading "இரவில் மேல்முறையீடு" [level=2] [ref=e252]
+                - paragraph [ref=e253]: ஆட்சியருக்கு அனுப்பப்பட்ட மனுக்கள்
+            - button "விரிவாகப் பார்" [ref=e255]:
+              - generic [aria-hidden] [ref=e256]: arrow_forward
+          - list [ref=e257]:
+            - listitem [ref=e258]:
+              - button "CM/KRI/88214 முதல்வர் தனிப்பிரிவு குடிநீர் தட்டுப்பாடு — பேரிகை ஊராட்சி ஒன்றிய அலுவலர், சூளகிரி" [ref=e259]:
+                - generic [ref=e260]:
+                  - generic [ref=e261]: CM/KRI/88214
+                  - generic [ref=e262]: முதல்வர் தனிப்பிரிவு
+                - paragraph [ref=e263]: குடிநீர் தட்டுப்பாடு — பேரிகை ஊராட்சி
+                - paragraph [ref=e264]: ஒன்றிய அலுவலர், சூளகிரி
+            - listitem [ref=e265]:
+              - button "US/KRI/40122 உங்களுடன் ஸ்டாலின் பட்டா மாற்றம் தாமதம் — கேளமங்கலம் வட்டாட்சியர், தேன்கனிக்கோட்டை" [ref=e266]:
+                - generic [ref=e267]:
+                  - generic [ref=e268]: US/KRI/40122
+                  - generic [ref=e269]: உங்களுடன் ஸ்டாலின்
+                - paragraph [ref=e270]: பட்டா மாற்றம் தாமதம் — கேளமங்கலம்
+                - paragraph [ref=e271]: வட்டாட்சியர், தேன்கனிக்கோட்டை
+            - listitem [ref=e272]:
+              - button "PG/KRI/7781 மத்திய மனு தளம் ஓய்வூதிய நிலுவை — 3 மாதங்கள் மாவட்ட சமூக நல அலுவலர்" [ref=e273]:
+                - generic [ref=e274]:
+                  - generic [ref=e275]: PG/KRI/7781
+                  - generic [ref=e276]: மத்திய மனு தளம்
+                - paragraph [ref=e277]: ஓய்வூதிய நிலுவை — 3 மாதங்கள்
+                - paragraph [ref=e278]: மாவட்ட சமூக நல அலுவலர்
+        - generic [ref=e279]:
+          - generic [ref=e281]:
+            - generic [aria-hidden] [ref=e283]: gavel
+            - generic [ref=e284]:
+              - heading "நீதிமன்ற உத்தரவுகள்" [level=2] [ref=e285]
+              - paragraph [ref=e286]: சென்னை உயர் நீதிமன்றம் — காலக்கெடு
+          - list [ref=e287]:
+            - listitem [ref=e288]:
+              - generic [ref=e289]:
+                - generic [ref=e290]: WP 2841/24
+                - generic [ref=e291]:
+                  - generic [aria-hidden] [ref=e292]: dangerous
+                  - text: 1 நாட்கள
+              - paragraph [ref=e293]: சூளகிரி பெரிய ஏரி ஆக்கிரமிப்பு
+              - paragraph [ref=e294]: எதிர் பிரமாணப் பத்திரம் நாளை
+            - listitem [ref=e295]:
+              - generic [ref=e296]:
+                - generic [ref=e297]: WP 3190/24
+                - generic [ref=e298]:
+                  - generic [aria-hidden] [ref=e299]: error
+                  - text: 4 நாட்கள
+              - paragraph [ref=e300]: ஓசூர் புறவழிச்சாலை நில இழப்பீடு
+              - paragraph [ref=e301]: இணக்க அறிக்கை 4 நாட்களில்
+            - listitem [ref=e302]:
+              - generic [ref=e303]:
+                - generic [ref=e304]: CONT 44/24
+                - generic [ref=e305]:
+                  - generic [aria-hidden] [ref=e306]: warning
+                  - text: 9 நாட்கள
+              - paragraph [ref=e307]: போச்சம்பள்ளி பட்டா அவமதிப்பு அறிவிப்பு
+              - paragraph [ref=e308]: நேரில் ஆஜர் 9 நாட்களில்
+        - generic [ref=e309]:
+          - generic [ref=e310]:
+            - generic [ref=e312]:
+              - generic [aria-hidden] [ref=e314]: star
+              - generic [ref=e315]:
+                - heading "முக்கிய பிரமுகர் வருகை" [level=2] [ref=e316]
+                - paragraph [ref=e317]: அடுத்த 7 நாட்கள்
+            - list [ref=e318]:
+              - listitem [ref=e319]:
+                - generic [ref=e320]:
+                  - paragraph [ref=e321]: மாண்புமிகு அமைச்சர், ஊரக வளர்ச்சி
+                  - generic [ref=e322]: அக் 26 · 11:00
+                - paragraph [ref=e323]: கலைஞர் கனவு இல்லம் ஒப்படைப்பு, காவேரிப்பட்டினம்
+              - listitem [ref=e324]:
+                - generic [ref=e325]:
+                  - paragraph [ref=e326]: செயலாளர், தொழில் துறை
+                  - generic [ref=e327]: அக் 28 · 15:30
+                - paragraph [ref=e328]: மின்சார வாகன துணைக் கொத்து ஆய்வு, ஓசூர்
+              - listitem [ref=e329]:
+                - generic [ref=e330]:
+                  - paragraph [ref=e331]: மாவட்ட நாடாளுமன்ற உறுப்பினர்
+                  - generic [ref=e332]: அக் 29 · 10:00
+                - paragraph [ref=e333]: திசை குழு கூட்டம்
+          - generic [ref=e334]:
+            - generic [ref=e336]:
+              - generic [aria-hidden] [ref=e338]: local_police
+              - generic [ref=e339]:
+                - heading "சட்டம் ஒழுங்கு நிலவரம்" [level=2] [ref=e340]
+                - paragraph [ref=e341]: கடந்த 24 மணி · காவல் கட்டுப்பாட்டு அறை
+            - list [ref=e342]:
+              - listitem [ref=e343]:
+                - paragraph [ref=e344]: குற்றவியல் வழக்குகள் (24 மணி)
+                - paragraph [ref=e345]:
+                  - generic [ref=e346]: "14"
+              - listitem [ref=e347]:
+                - paragraph [ref=e348]: சாலை உயிரிழப்பு தே.நெ. 44
+                - paragraph [ref=e349]:
+                  - generic [ref=e350]: "1"
+                  - generic [ref=e351]: கண்காணிப்பு
+              - listitem [ref=e352]:
+                - paragraph [ref=e353]: மதுவிலக்கு சோதனை
+                - paragraph [ref=e354]:
+                  - generic [ref=e355]: "6"
+              - listitem [ref=e356]:
+                - paragraph [ref=e357]: அமைதிக் கேடு சம்பவங்கள்
+                - paragraph [ref=e358]:
+                  - generic [ref=e359]: "0"
+                  - generic [ref=e360]: இயல்பு
+            - button "கைபேசிக்கு அனுப்பு" [ref=e361]:
+              - generic [aria-hidden] [ref=e362]: ios_share
+      - paragraph [ref=e364]:
+        - generic [aria-hidden] [ref=e365]: verified_user
+        - text: தமிழ்நாடு மின்-ஆளுமை தரவு மையத்திலிருந்து நேரலை · 4G-க்கு உகந்தது · 15 தொகுதிகள்

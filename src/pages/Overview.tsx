@@ -88,12 +88,23 @@ const COURT = [
   },
 ]
 
+/**
+ * The three petitions the CM Cell / CPGRAMS routers pushed to the Collector
+ * last night. Officer, petitioner and age mirror the same refs on the
+ * Grievances page so the two screens never disagree.
+ */
 const OVERNIGHT = [
   {
     ref: 'CM/KRI/88214',
     title: bi('Drinking water shortage — Berigai panchayat', 'குடிநீர் தட்டுப்பாடு — பேரிகை ஊராட்சி'),
     from: bi('CM Cell', 'முதல்வர் தனிப்பிரிவு'),
     officer: bi('BDO Shoolagiri', 'ஒன்றிய அலுவலர், சூளகிரி'),
+    officerName: 'S. Manivannan',
+    designation: DESIG.bdo,
+    phone: '+914344234567',
+    petitioner: 'R. Selvarani · 94xxx 21870',
+    ageDays: 68,
+    escalatedAt: '24 Oct 06:12',
     tone: 'critical' as const,
   },
   {
@@ -101,13 +112,25 @@ const OVERNIGHT = [
     title: bi('Patta transfer delay — Kelamangalam', 'பட்டா மாற்றம் தாமதம் — கேளமங்கலம்'),
     from: bi('Ungaludan Stalin', 'உங்களுடன் ஸ்டாலின்'),
     officer: bi('Tahsildar Denkanikottai', 'வட்டாட்சியர், தேன்கனிக்கோட்டை'),
+    officerName: 'R. Vinoth',
+    designation: DESIG.tahsildar,
+    phone: '+914347222104',
+    petitioner: 'K. Munusamy · 90xxx 44120',
+    ageDays: 54,
+    escalatedAt: '24 Oct 05:48',
     tone: 'serious' as const,
   },
   {
     ref: 'PG/KRI/7781',
-    title: bi('Pension arrears — 3 months', 'ஓய்வூதிய நிலுவை — 3 மாதங்கள்'),
+    title: bi('Old age pension arrears — 3 months', 'முதியோர் ஓய்வூதிய நிலுவை — 3 மாதங்கள்'),
     from: bi('CPGRAMS', 'மத்திய மனு தளம்'),
     officer: bi('DSWO', 'மாவட்ட சமூக நல அலுவலர்'),
+    officerName: 'D. Priya',
+    designation: DESIG.dswo,
+    phone: '+914343240011',
+    petitioner: 'A. Lakshmi · 99xxx 10233',
+    ageDays: 47,
+    escalatedAt: '24 Oct 04:35',
     tone: 'warning' as const,
   },
 ]
@@ -139,13 +162,13 @@ const RAIN_7D = [4.2, 0, 8.6, 12.1, 6.4, 18.2, 14.2]
 
 export function OverviewPage() {
   const { t } = useI18n()
-  const { go, notify } = useApp()
+  const { go } = useApp()
   const [drill, setDrill] = useState<Drill | null>(null)
 
   return (
     <div className="flex flex-col gap-4">
       <PageHead
-        title={bi('My day at a glance', 'என் நாள் — ஒரே பார்வையில்')}
+        title={bi("Today's Overview", 'இன்றைய கண்ணோட்டம்')}
         note={bi('24 Oct 2024 · Thursday', 'அக்டோபர் 24, 2024 · வியாழன்')}
         icon="overview"
       />
@@ -233,7 +256,7 @@ export function OverviewPage() {
           <PanelHead
             icon="rainy"
             title={bi('Weather & rainfall', 'வானிலை & மழையளவு')}
-            note={bi('Mango belt and Kaveri-fed tracts', 'மாந்தோப்பு மற்றும் காவேரி பாசனப் பகுதி')}
+            note={bi('Mango belt · Thenpennai basin', 'மாந்தோப்பு · தென்பெண்ணை படுகை')}
           />
           <div className="flex items-end justify-between gap-3">
             <div>
@@ -248,7 +271,7 @@ export function OverviewPage() {
           <div className="mt-3 grid grid-cols-3 gap-2">
             {[
               { label: bi('Today', 'இன்று'), value: '14.2 mm' },
-              { label: bi('Season', 'பருவம்'), value: '412 mm' },
+              { label: bi('Since 1 Jun', 'ஜூன் 1 முதல்'), value: '412 mm' },
               { label: bi('vs normal', 'இயல்பை விட'), value: '+8%' },
             ].map((item) => (
               <div key={t(item.label)} className="rounded bg-surface-container-low p-2">
@@ -269,6 +292,7 @@ export function OverviewPage() {
 
           <div className="mt-3 flex flex-col gap-1.5">
             {[
+              { name: bi('Krishnagiri (KRP)', 'கிருஷ்ணகிரி (கே.ஆர்.பி)'), level: '42.1 / 52 ft', pctFull: 81 },
               { name: bi('Kelavarapalli', 'கெலவரப்பள்ளி'), level: '38.4 / 44 ft', pctFull: 87 },
               { name: bi('Barur', 'பர்கூர்'), level: '21.6 / 28 ft', pctFull: 77 },
               { name: bi('Pambar', 'பாம்பாறு'), level: '9.8 / 16 ft', pctFull: 61 },
@@ -317,11 +341,18 @@ export function OverviewPage() {
                       facts: [
                         { label: bi('Channel', 'வழி'), value: t(item.from) },
                         { label: bi('With officer', 'அலுவலரிடம்'), value: t(item.officer) },
-                        { label: bi('Age', 'காலம்'), value: '2 days' },
-                        { label: bi('Petitioner', 'மனுதாரர்'), value: 'R. Selvarani · 94xxx 21870' },
+                        {
+                          label: bi('Petition age', 'மனுவின் காலம்'),
+                          value: `${num(item.ageDays)} ${t(ui.days)}`,
+                        },
+                        { label: bi('Petitioner', 'மனுதாரர்'), value: item.petitioner },
                       ],
-                      officer: { name: 'S. Manivannan', designation: DESIG.bdo, phone: '+914344234567' },
-                      audit: { updated: '24 Oct 06:12', by: 'CM Cell auto-route', source: SRC.cmcell },
+                      officer: {
+                        name: item.officerName,
+                        designation: item.designation,
+                        phone: item.phone,
+                      },
+                      audit: { updated: item.escalatedAt, by: 'Grievance router', source: SRC.cmcell },
                       actions: [{ label: ui.escalate, icon: 'trending_up' }],
                     })
                   }
@@ -361,7 +392,7 @@ export function OverviewPage() {
                   </span>
                   <Status
                     tone={item.tone}
-                    label={`${item.days} ${t(ui.days)}`}
+                    label={`${item.days} ${t(item.days === 1 ? ui.day : ui.days)}`}
                   />
                 </div>
                 <p className="mt-0.5 font-label-md text-label-md font-bold text-on-surface">
@@ -425,12 +456,6 @@ export function OverviewPage() {
                 </li>
               ))}
             </ul>
-            <Btn
-              full
-              icon="ios_share"
-              label={ui.pushMobile}
-              onClick={() => notify(ui.pushed)}
-            />
           </Panel>
         </div>
       </div>

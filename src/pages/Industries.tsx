@@ -36,7 +36,7 @@ type Clearance = {
 }
 
 const CLEARANCES: Clearance[] = [
-  { id: 'sw-1', applicant: bi('Ampere EV components', 'ஆம்பியர் மின்சார வாகன உதிரி'), sector: bi('EV ancillary', 'மின்சார வாகன துணை'), stage: bi('Fire NOC pending', 'தீயணைப்பு அனுமதி நிலுவை'), ageDays: 34, investmentCr: 420, tone: 'critical' },
+  { id: 'sw-1', applicant: bi('Ather Energy ancillary unit', 'ஏதர் எனர்ஜி துணை உற்பத்தி'), sector: bi('EV ancillary', 'மின்சார வாகன துணை'), stage: bi('Fire NOC pending', 'தீயணைப்பு அனுமதி நிலுவை'), ageDays: 34, investmentCr: 420, tone: 'critical' },
   { id: 'sw-2', applicant: bi('Titan precision unit', 'டைட்டன் நுண் தொழில்நுட்பம்'), sector: bi('Engineering', 'பொறியியல்'), stage: bi('TNPCB consent', 'மாசுக்கட்டுப்பாடு ஒப்புதல்'), ageDays: 21, investmentCr: 186, tone: 'serious' },
   { id: 'sw-3', applicant: bi('Ashok Leyland vendor park', 'அசோக் லேலண்ட் விற்பனையாளர் பூங்கா'), sector: bi('Automotive', 'வாகனத் தொழில்'), stage: bi('Power feasibility', 'மின் சாத்தியக்கூறு'), ageDays: 14, investmentCr: 640, tone: 'warning' },
   { id: 'sw-4', applicant: bi('Krishnagiri food park', 'கிருஷ்ணகிரி உணவு பூங்கா'), sector: bi('Food processing', 'உணவு பதப்படுத்துதல்'), stage: bi('Approved', 'ஒப்புதல்'), ageDays: 6, investmentCr: 92, tone: 'good' },

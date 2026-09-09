@@ -1,4 +1,5 @@
 import { bi, type Bi } from '../i18n'
+import { ITEMS as ACTION_ITEMS } from '../data/actions'
 
 export type SectionId =
   | 'overview'
@@ -53,7 +54,7 @@ export const SECTIONS: Section[] = [
     label: bi('Action queue', 'நடவடிக்கைப் பட்டியல்'),
     group: G.command,
     roles: ['collector', 'rdo', 'bdo', 'tahsildar', 'hod'],
-    badge: 18,
+    badge: ACTION_ITEMS.length,
     badgeTone: 'critical',
   },
   {

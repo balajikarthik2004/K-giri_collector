@@ -47,7 +47,7 @@ type PriceRow = {
 }
 
 const PRICES: PriceRow[] = [
-  { id: 'mango', crop: bi('Mango (Alphonso)', 'மாம்பழம் (அல்போன்சா)'), market: bi('Krishnagiri', 'கிருஷ்ணகிரி'), price: 6200, unit: bi('/ quintal', '/ குவிண்டால்'), change: 4.2, trend: [5400, 5600, 5900, 5750, 6050, 6200] },
+  { id: 'mango', crop: bi('Mango (Neelam)', 'மாம்பழம் (நீலம்)'), market: bi('Krishnagiri', 'கிருஷ்ணகிரி'), price: 6200, unit: bi('/ quintal', '/ குவிண்டால்'), change: 4.2, trend: [5400, 5600, 5900, 5750, 6050, 6200] },
   { id: 'mango-t', crop: bi('Mango (Totapuri)', 'மாம்பழம் (தோதாபுரி)'), market: bi('Krishnagiri', 'கிருஷ்ணகிரி'), price: 2850, unit: bi('/ quintal', '/ குவிண்டால்'), change: -2.8, trend: [3100, 3050, 2980, 2900, 2930, 2850] },
   { id: 'tomato', crop: bi('Tomato', 'தக்காளி'), market: bi('Hosur', 'ஓசூர்'), price: 1840, unit: bi('/ quintal', '/ குவிண்டால்'), change: 18.4, trend: [980, 1120, 1340, 1510, 1680, 1840] },
   { id: 'coconut', crop: bi('Coconut', 'தேங்காய்'), market: bi('Hosur', 'ஓசூர்'), price: 3420, unit: bi('/ 1000 nuts', '/ 1000 காய்'), change: 1.1, trend: [3300, 3340, 3380, 3360, 3400, 3420] },

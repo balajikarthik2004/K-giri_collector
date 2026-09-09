@@ -17,14 +17,22 @@ type Scheme = {
   tone: 'good' | 'warning' | 'serious' | 'critical'
 }
 
+/**
+ * October release cycle. `releasedCr` is this month only, so the column totals
+ * ₹59.10 Cr — the figure the "released this month" tile and the DBT trend both
+ * carry. Entitlements are the published rates: Magalir Urimai Thogai ₹1,000 and
+ * old-age pension ₹1,200 a month, PM-KISAN ₹2,000 an instalment.
+ * PM-KISAN shows nothing this month: the instalment is held until the 2,140
+ * unseeded Aadhaar records in Uthangarai are cleared.
+ */
 const SCHEMES: Scheme[] = [
-  { id: 'kmut', name: bi('Kalaignar Magalir Urimai Thogai', 'கலைஞர் மகளிர் உரிமைத் தொகை'), beneficiaries: 384210, releasedCr: 38.42, successPct: 99.6, aadhaarGap: 412, tone: 'good' },
-  { id: 'pension', name: bi('Social security pensions', 'சமூகப் பாதுகாப்பு ஓய்வூதியம்'), beneficiaries: 71840, releasedCr: 8.62, successPct: 98.1, aadhaarGap: 1284, tone: 'warning' },
-  { id: 'pmkisan', name: bi('PM-KISAN', 'பிரதமர் கிசான்'), beneficiaries: 128460, releasedCr: 25.69, successPct: 96.4, aadhaarGap: 2140, tone: 'serious' },
-  { id: 'pmayg', name: bi('PMAY-G rural housing', 'பிரதமர் ஊரக வீட்டுவசதி'), beneficiaries: 4820, releasedCr: 62.4, successPct: 94.8, aadhaarGap: 88, tone: 'warning' },
-  { id: 'solar', name: bi('CM Solar Powered Housing', 'முதலமைச்சர் சூரிய சக்தி வீடு'), beneficiaries: 1240, releasedCr: 18.6, successPct: 97.2, aadhaarGap: 24, tone: 'good' },
+  { id: 'kmut', name: bi('Kalaignar Magalir Urimai Thogai', 'கலைஞர் மகளிர் உரிமைத் தொகை'), beneficiaries: 384210, releasedCr: 38.42, successPct: 99.8, aadhaarGap: 412, tone: 'good' },
+  { id: 'pension', name: bi('Social security pensions', 'சமூகப் பாதுகாப்பு ஓய்வூதியம்'), beneficiaries: 71840, releasedCr: 8.62, successPct: 99.3, aadhaarGap: 1284, tone: 'warning' },
+  { id: 'pmkisan', name: bi('PM-KISAN', 'பிரதமர் கிசான்'), beneficiaries: 128460, releasedCr: 0, successPct: 96.4, aadhaarGap: 2140, tone: 'critical' },
+  { id: 'pmayg', name: bi('PMAY-G rural housing', 'பிரதமர் ஊரக வீட்டுவசதி'), beneficiaries: 4820, releasedCr: 6.24, successPct: 98.4, aadhaarGap: 88, tone: 'warning' },
+  { id: 'solar', name: bi('CM Solar Powered Housing', 'முதலமைச்சர் சூரிய சக்தி வீடு'), beneficiaries: 1240, releasedCr: 3.1, successPct: 99.0, aadhaarGap: 24, tone: 'good' },
   { id: 'ration', name: bi('Ration card issuance', 'குடும்ப அட்டை வழங்கல்'), beneficiaries: 9640, releasedCr: 0, successPct: 91.3, aadhaarGap: 640, tone: 'serious' },
-  { id: 'twowheeler', name: bi('Working women two-wheeler subsidy', 'உழைக்கும் மகளிர் இருசக்கர வாகன மானியம்'), beneficiaries: 2180, releasedCr: 5.4, successPct: 99.1, aadhaarGap: 12, tone: 'good' },
+  { id: 'twowheeler', name: bi('Working women two-wheeler subsidy', 'உழைக்கும் மகளிர் இருசக்கர வாகன மானியம்'), beneficiaries: 2180, releasedCr: 2.72, successPct: 99.4, aadhaarGap: 12, tone: 'good' },
 ]
 
 const DBT_TREND = [
@@ -36,10 +44,11 @@ const DBT_TREND = [
   { label: MONTHS[5], a: 59.1 },
 ]
 
-const MGNREGS = BLOCKS.slice(0, 8).map((block, index) => ({
+/** All ten panchayat unions; the note is the block's labour-budget achievement. */
+const MGNREGS = BLOCKS.map((block, index) => ({
   label: block,
-  value: [412000, 386000, 341000, 298000, 276000, 254000, 231000, 208000][index],
-  note: `${[88, 84, 79, 74, 71, 68, 64, 59][index]}%`,
+  value: [412000, 386000, 341000, 298000, 276000, 254000, 231000, 208000, 194000, 172000][index],
+  note: `${[88, 84, 79, 74, 71, 68, 64, 59, 56, 51][index]}%`,
 }))
 
 type Flag = {
@@ -66,7 +75,7 @@ export function SchemesPage() {
   const columns: Column<Scheme>[] = [
     { key: 'name', head: bi('Scheme', 'திட்டம்'), text: (row) => t(row.name) },
     { key: 'ben', head: bi('Beneficiaries', 'பயனாளிகள்'), align: 'right', text: (row) => num(row.beneficiaries) },
-    { key: 'rel', head: bi('Released', 'வழங்கியது'), align: 'right', text: (row) => (row.releasedCr ? inr(row.releasedCr) : '—') },
+    { key: 'rel', head: bi('Released this month', 'இந்த மாதம் வழங்கியது'), align: 'right', text: (row) => (row.releasedCr ? inr(row.releasedCr) : '—') },
     {
       key: 'succ',
       head: bi('Txn success', 'பரிவர்த்தனை வெற்றி'),
@@ -108,8 +117,8 @@ export function SchemesPage() {
         <Stat label={bi('Released today', 'இன்று வழங்கியது')} value="₹14.82" unit="Cr" delta="99.4%" deltaTone="good" meter={99.4} meterTone="good" />
         <Stat label={bi('Released this month', 'இந்த மாதம்')} value="₹59.1" unit="Cr" delta="+7%" deltaTone="good" />
         <Stat label={bi('Active beneficiaries', 'செயலில் உள்ள பயனாளிகள்')} value="6.02" unit={t(bi('lakh', 'லட்சம்'))} />
-        <Stat label={bi('Failed transactions', 'தோல்வியுற்ற பரிவர்த்தனை')} value={num(1284)} delta={t(bi('re-push queued', 'மீள் அனுப்புதல்'))} deltaTone="bad" />
-        <Stat label={bi('Aadhaar seeding gaps', 'ஆதார் இணைப்பு இடைவெளி')} value={num(3606)} delta={t(bi('5 blocks', '5 ஒன்றியம்'))} deltaTone="bad" />
+        <Stat label={bi('Failed transactions', 'தோல்வியுற்ற பரிவர்த்தனை')} value={num(1373)} delta={t(bi('re-push queued', 'மீள் அனுப்புதல்'))} deltaTone="bad" footnote={bi('Across schemes paid this cycle', 'இந்த சுழற்சியில் வழங்கிய திட்டங்கள்')} />
+        <Stat label={bi('DBT exception records', 'விதிவிலக்கு பதிவுகள்')} value={num(3606)} delta={t(bi('5 blocks', '5 ஒன்றியம்'))} deltaTone="bad" footnote={bi('Seeding, KYC, duplicate and de-listing', 'இணைப்பு, KYC, நகல் மற்றும் நீக்கம்')} />
       </StatGrid>
 
       <div className="grid gap-4 xl:grid-cols-3">
@@ -138,7 +147,7 @@ export function SchemesPage() {
                   { label: bi('Last disbursement', 'கடைசி வழங்கல்'), value: '23 Oct 2024' },
                   { label: bi('Grievances open', 'நிலுவை மனுக்கள்'), value: '48' },
                 ],
-                officer: { name: 'D. Priya', designation: DESIG.dd, phone: '+914343240011' },
+                officer: { name: 'D. Priya', designation: DESIG.dswo, phone: '+914343240011' },
                 audit: { updated: '24 Oct 06:00', by: 'PFMS reconciliation', source: SRC.dbt },
                 actions: [{ label: bi('Re-push failed', 'தோல்வியை மீள் அனுப்பு'), icon: 'restart_alt', variant: 'primary' }],
               })

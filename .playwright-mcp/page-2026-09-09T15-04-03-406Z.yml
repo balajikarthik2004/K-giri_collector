@@ -1,0 +1,374 @@
+- generic [ref=f7e3]:
+  - banner [ref=f7e4]:
+    - button "Krishnagiri District Collectorate Command Portal" [ref=f7e6]:
+      - generic [ref=f7e7]:
+        - generic [ref=f7e8]: Krishnagiri District
+        - generic [ref=f7e9]: Collectorate Command Portal
+    - generic [ref=f7e10]:
+      - generic [aria-hidden]: search
+      - searchbox "Search" [ref=f7e11]
+      - generic: ⌘K
+    - generic [ref=f7e12]:
+      - generic [ref=f7e13]:
+        - generic [ref=f7e14]: 20:33 IST
+        - generic [ref=f7e15]: 24 Oct 2024 · Thu
+      - generic [ref=f7e18]:
+        - generic [aria-hidden] [ref=f7e19]: switch_account
+        - generic [ref=f7e20]:
+          - generic [ref=f7e21]: Collector
+          - generic [ref=f7e22]: Krishnagiri district
+        - generic [aria-hidden] [ref=f7e23]: expand_more
+        - combobox "Role" [ref=f7e24] [cursor=pointer]:
+          - option "Collector" [selected]
+          - option "RDO"
+          - option "BDO"
+          - option "Tahsildar"
+          - option "Dept. head"
+      - generic [ref=f7e25]:
+        - button "தமிழ்" [ref=f7e26]
+        - button "EN" [ref=f7e27]
+      - button "Action queue" [ref=f7e29]:
+        - generic [aria-hidden] [ref=f7e30]: notifications
+        - generic [ref=f7e31]: "8"
+      - button "Thiru C. Dinesh Kumar, IAS Thiru C. Dinesh Kumar, IAS District Collector & Magistrate" [ref=f7e656]:
+        - img "Thiru C. Dinesh Kumar, IAS" [ref=f7e657]
+        - generic [ref=f7e35]:
+          - generic [ref=f7e36]: Thiru C. Dinesh Kumar, IAS
+          - generic [ref=f7e37]: District Collector & Magistrate
+  - complementary [ref=f7e38]:
+    - navigation [ref=f7e39]:
+      - generic [ref=f7e40]:
+        - paragraph [ref=f7e41]: Command
+        - button "My day" [ref=f7e42]:
+          - generic [aria-hidden] [ref=f7e43]: overview
+        - button "Action queue 8" [ref=f7e45]:
+          - generic [aria-hidden] [ref=f7e46]: priority_high
+          - generic [ref=f7e47]: Action queue
+          - generic [ref=f7e48]: "8"
+        - button "Map & drill-down" [ref=f7e49]:
+          - generic [aria-hidden] [ref=f7e50]: map
+      - generic [ref=f7e52]:
+        - paragraph [ref=f7e53]: Administration
+        - button "Revenue & land 214" [ref=f7e54]:
+          - generic [aria-hidden] [ref=f7e55]: real_estate_agent
+          - generic [ref=f7e56]: Revenue & land
+          - generic [ref=f7e57]: "214"
+        - button "Grievances & CM cell 96" [ref=f7e58]:
+          - generic [aria-hidden] [ref=f7e59]: mark_email_unread
+          - generic [ref=f7e60]: Grievances & CM cell
+          - generic [ref=f7e61]: "96"
+        - button "Finance & audit" [ref=f7e62]:
+          - generic [aria-hidden] [ref=f7e63]: account_balance_wallet
+        - button "Staff & attendance" [ref=f7e65]:
+          - generic [aria-hidden] [ref=f7e66]: badge
+        - button "Elections & civic" [ref=f7e68]:
+          - generic [aria-hidden] [ref=f7e69]: how_to_vote
+      - generic [ref=f7e71]:
+        - paragraph [ref=f7e72]: Development
+        - button "Schemes & DBT" [ref=f7e73]:
+          - generic [aria-hidden] [ref=f7e74]: volunteer_activism
+        - button "Agriculture & water" [ref=f7e76]:
+          - generic [aria-hidden] [ref=f7e77]: agriculture
+        - button "Industry & jobs" [ref=f7e79]:
+          - generic [aria-hidden] [ref=f7e80]: factory
+        - button "Water & infrastructure" [ref=f7e82]:
+          - generic [aria-hidden] [ref=f7e83]: water_drop
+      - generic [ref=f7e85]:
+        - paragraph [ref=f7e86]: Human development
+        - button "Health" [ref=f7e87]:
+          - generic [aria-hidden] [ref=f7e88]: local_hospital
+        - button "Education" [ref=f7e90]:
+          - generic [aria-hidden] [ref=f7e91]: school
+      - generic [ref=f7e93]:
+        - paragraph [ref=f7e94]: Safety
+        - button "Law, order & disaster" [ref=f7e95]:
+          - generic [aria-hidden] [ref=f7e96]: shield
+    - link "1077" [ref=f7e99] [cursor=pointer]:
+      - /url: tel:1077
+      - generic [aria-hidden] [ref=f7e100]: emergency
+      - text: "1077"
+  - main [ref=f7e102]:
+    - generic [ref=f7e658]:
+      - generic [ref=f7e660]:
+        - generic [aria-hidden] [ref=f7e662]: volunteer_activism
+        - generic [ref=f7e663]:
+          - heading "Schemes & direct benefit transfer" [level=1] [ref=f7e664]
+          - paragraph [ref=f7e665]: Beneficiary coverage, disbursement and exception flags
+      - generic [ref=f7e666]:
+        - generic [ref=f7e667]:
+          - generic [ref=f7e669]: Released today
+          - generic [ref=f7e670]:
+            - generic [ref=f7e671]: ₹14.82
+            - generic [ref=f7e672]: Cr
+            - generic [ref=f7e673]: 99.4%
+        - generic [ref=f7e676]:
+          - generic [ref=f7e678]: Released this month
+          - generic [ref=f7e679]:
+            - generic [ref=f7e680]: ₹59.1
+            - generic [ref=f7e681]: Cr
+            - generic [ref=f7e682]: +7%
+        - generic [ref=f7e683]:
+          - generic [ref=f7e685]: Active beneficiaries
+          - generic [ref=f7e686]:
+            - generic [ref=f7e687]: "6.02"
+            - generic [ref=f7e688]: lakh
+        - generic [ref=f7e689]:
+          - generic [ref=f7e691]: Failed transactions
+          - generic [ref=f7e692]:
+            - generic [ref=f7e693]: 1,373
+            - generic [ref=f7e694]: re-push queued
+          - generic [ref=f7e695]: Across schemes paid this cycle
+        - generic [ref=f7e696]:
+          - generic [ref=f7e698]: DBT exception records
+          - generic [ref=f7e699]:
+            - generic [ref=f7e700]: 3,606
+            - generic [ref=f7e701]: 5 blocks
+          - generic [ref=f7e702]: Seeding, KYC, duplicate and de-listing
+      - generic [ref=f7e703]:
+        - generic [ref=f7e704]:
+          - generic [ref=f7e706]:
+            - generic [aria-hidden] [ref=f7e708]: fact_check
+            - generic [ref=f7e709]:
+              - heading "Scheme-wise status" [level=2] [ref=f7e710]
+              - paragraph [ref=f7e711]: Flagship schemes running in the district
+          - generic [ref=f7e712]:
+            - generic [ref=f7e713]:
+              - generic [ref=f7e714]:
+                - generic [aria-hidden]: search
+                - textbox "Search" [ref=f7e715]
+              - button "Export CSV" [ref=f7e716]:
+                - generic [aria-hidden] [ref=f7e717]: download
+            - table [ref=f7e720]:
+              - rowgroup [ref=f7e721]:
+                - row [ref=f7e722]:
+                  - columnheader "Scheme" [ref=f7e723]
+                  - columnheader "Beneficiaries" [ref=f7e724]
+                  - columnheader "Released this month" [ref=f7e725]
+                  - columnheader "Txn success" [ref=f7e726]
+                  - columnheader "Aadhaar gaps" [ref=f7e727]
+                  - columnheader [ref=f7e728]
+              - rowgroup [ref=f7e729]:
+                - row [ref=f7e730] [cursor=pointer]:
+                  - cell "Kalaignar Magalir Urimai Thogai" [ref=f7e731]
+                  - cell "3,84,210" [ref=f7e732]
+                  - cell "₹38.42 Cr" [ref=f7e733]
+                  - cell [ref=f7e734]:
+                    - generic [ref=f7e735]:
+                      - generic [aria-hidden] [ref=f7e736]: check_circle
+                      - text: 99.8%
+                  - cell "412" [ref=f7e737]
+                  - cell [ref=f7e738]:
+                    - generic [aria-hidden] [ref=f7e739]: chevron_right
+                - row [ref=f7e740] [cursor=pointer]:
+                  - cell "Social security pensions" [ref=f7e741]
+                  - cell "71,840" [ref=f7e742]
+                  - cell "₹8.62 Cr" [ref=f7e743]
+                  - cell [ref=f7e744]:
+                    - generic [ref=f7e745]:
+                      - generic [aria-hidden] [ref=f7e746]: warning
+                      - text: 99.3%
+                  - cell "1,284" [ref=f7e747]
+                  - cell [ref=f7e748]:
+                    - generic [aria-hidden] [ref=f7e749]: chevron_right
+                - row [ref=f7e750] [cursor=pointer]:
+                  - cell "PM-KISAN" [ref=f7e751]
+                  - cell "1,28,460" [ref=f7e752]
+                  - cell "—" [ref=f7e753]
+                  - cell [ref=f7e754]:
+                    - generic [ref=f7e755]:
+                      - generic [aria-hidden] [ref=f7e756]: dangerous
+                      - text: 96.4%
+                  - cell "2,140" [ref=f7e757]
+                  - cell [ref=f7e758]:
+                    - generic [aria-hidden] [ref=f7e759]: chevron_right
+                - row [ref=f7e760] [cursor=pointer]:
+                  - cell "PMAY-G rural housing" [ref=f7e761]
+                  - cell "4,820" [ref=f7e762]
+                  - cell "₹6.24 Cr" [ref=f7e763]
+                  - cell [ref=f7e764]:
+                    - generic [ref=f7e765]:
+                      - generic [aria-hidden] [ref=f7e766]: warning
+                      - text: 98.4%
+                  - cell "88" [ref=f7e767]
+                  - cell [ref=f7e768]:
+                    - generic [aria-hidden] [ref=f7e769]: chevron_right
+                - row [ref=f7e770] [cursor=pointer]:
+                  - cell "CM Solar Powered Housing" [ref=f7e771]
+                  - cell "1,240" [ref=f7e772]
+                  - cell "₹3.10 Cr" [ref=f7e773]
+                  - cell [ref=f7e774]:
+                    - generic [ref=f7e775]:
+                      - generic [aria-hidden] [ref=f7e776]: check_circle
+                      - text: 99.0%
+                  - cell "24" [ref=f7e777]
+                  - cell [ref=f7e778]:
+                    - generic [aria-hidden] [ref=f7e779]: chevron_right
+                - row [ref=f7e780] [cursor=pointer]:
+                  - cell "Ration card issuance" [ref=f7e781]
+                  - cell "9,640" [ref=f7e782]
+                  - cell "—" [ref=f7e783]
+                  - cell [ref=f7e784]:
+                    - generic [ref=f7e785]:
+                      - generic [aria-hidden] [ref=f7e786]: error
+                      - text: 91.3%
+                  - cell "640" [ref=f7e787]
+                  - cell [ref=f7e788]:
+                    - generic [aria-hidden] [ref=f7e789]: chevron_right
+                - row [ref=f7e790] [cursor=pointer]:
+                  - cell "Working women two-wheeler subsidy" [ref=f7e791]
+                  - cell "2,180" [ref=f7e792]
+                  - cell "₹2.72 Cr" [ref=f7e793]
+                  - cell [ref=f7e794]:
+                    - generic [ref=f7e795]:
+                      - generic [aria-hidden] [ref=f7e796]: check_circle
+                      - text: 99.4%
+                  - cell "12" [ref=f7e797]
+                  - cell [ref=f7e798]:
+                    - generic [aria-hidden] [ref=f7e799]: chevron_right
+        - generic [ref=f7e800]:
+          - generic [ref=f7e802]:
+            - generic [aria-hidden] [ref=f7e804]: trending_up
+            - generic [ref=f7e805]:
+              - heading "DBT outflow trend" [level=2] [ref=f7e806]
+              - paragraph [ref=f7e807]: ₹ crore per month
+          - list [ref=f7e810]:
+            - listitem [ref=f7e811]: Released
+      - generic [ref=f7e813]:
+        - generic [ref=f7e814]:
+          - generic [ref=f7e816]:
+            - generic [aria-hidden] [ref=f7e818]: engineering
+            - generic [ref=f7e819]:
+              - heading "MGNREGS person-days" [level=2] [ref=f7e820]
+              - paragraph [ref=f7e821]: Against block labour budget
+          - list [ref=f7e822]:
+            - listitem [ref=f7e823]:
+              - generic [ref=f7e825]:
+                - generic [ref=f7e826]: Krishnagiri
+                - generic [ref=f7e827]: 4,12,00088%
+            - listitem [ref=f7e830]:
+              - generic [ref=f7e832]:
+                - generic [ref=f7e833]: Hosur
+                - generic [ref=f7e834]: 3,86,00084%
+            - listitem [ref=f7e837]:
+              - generic [ref=f7e839]:
+                - generic [ref=f7e840]: Shoolagiri
+                - generic [ref=f7e841]: 3,41,00079%
+            - listitem [ref=f7e844]:
+              - generic [ref=f7e846]:
+                - generic [ref=f7e847]: Thally
+                - generic [ref=f7e848]: 2,98,00074%
+            - listitem [ref=f7e851]:
+              - generic [ref=f7e853]:
+                - generic [ref=f7e854]: Kelamangalam
+                - generic [ref=f7e855]: 2,76,00071%
+            - listitem [ref=f7e858]:
+              - generic [ref=f7e860]:
+                - generic [ref=f7e861]: Bargur
+                - generic [ref=f7e862]: 2,54,00068%
+            - listitem [ref=f7e865]:
+              - generic [ref=f7e867]:
+                - generic [ref=f7e868]: Veppanapalli
+                - generic [ref=f7e869]: 2,31,00064%
+            - listitem [ref=f7e872]:
+              - generic [ref=f7e874]:
+                - generic [ref=f7e875]: Uthangarai
+                - generic [ref=f7e876]: 2,08,00059%
+            - listitem [ref=f7e879]:
+              - generic [ref=f7e881]:
+                - generic [ref=f7e882]: Kaveripattinam
+                - generic [ref=f7e883]: 1,94,00056%
+            - listitem [ref=f7e886]:
+              - generic [ref=f7e888]:
+                - generic [ref=f7e889]: Mathur
+                - generic [ref=f7e890]: 1,72,00051%
+        - generic [ref=f7e893]:
+          - generic [ref=f7e895]:
+            - generic [aria-hidden] [ref=f7e897]: report
+            - generic [ref=f7e898]:
+              - heading "Exception flags" [level=2] [ref=f7e899]
+              - paragraph [ref=f7e900]: Ghost beneficiary and seeding checks
+          - generic [ref=f7e901]:
+            - button "Export CSV" [ref=f7e903]:
+              - generic [aria-hidden] [ref=f7e904]: download
+            - table [ref=f7e907]:
+              - rowgroup [ref=f7e908]:
+                - row [ref=f7e909]:
+                  - columnheader "Exception" [ref=f7e910]
+                  - columnheader "Scheme" [ref=f7e911]
+                  - columnheader "Block" [ref=f7e912]
+                  - columnheader "Records" [ref=f7e913]
+                  - columnheader [ref=f7e914]
+              - rowgroup [ref=f7e915]:
+                - row [ref=f7e916] [cursor=pointer]:
+                  - cell "Aadhaar not seeded to account" [ref=f7e917]
+                  - cell "PM-KISAN" [ref=f7e918]
+                  - cell "Uthangarai" [ref=f7e919]
+                  - cell [ref=f7e920]:
+                    - generic [ref=f7e921]:
+                      - generic [aria-hidden] [ref=f7e922]: dangerous
+                      - text: 2,140
+                  - cell [ref=f7e923]:
+                    - generic [aria-hidden] [ref=f7e924]: chevron_right
+                - row [ref=f7e925] [cursor=pointer]:
+                  - cell "Duplicate beneficiary suspected" [ref=f7e926]
+                  - cell "Pensions" [ref=f7e927]
+                  - cell "Hosur" [ref=f7e928]
+                  - cell [ref=f7e929]:
+                    - generic [ref=f7e930]:
+                      - generic [aria-hidden] [ref=f7e931]: dangerous
+                      - text: "318"
+                  - cell [ref=f7e932]:
+                    - generic [aria-hidden] [ref=f7e933]: chevron_right
+                - row [ref=f7e934] [cursor=pointer]:
+                  - cell "Account frozen / KYC lapsed" [ref=f7e935]
+                  - cell "Magalir Urimai Thogai" [ref=f7e936]
+                  - cell "Thally" [ref=f7e937]
+                  - cell [ref=f7e938]:
+                    - generic [ref=f7e939]:
+                      - generic [aria-hidden] [ref=f7e940]: error
+                      - text: "412"
+                  - cell [ref=f7e941]:
+                    - generic [aria-hidden] [ref=f7e942]: chevron_right
+                - row [ref=f7e943] [cursor=pointer]:
+                  - cell "Deceased not de-listed" [ref=f7e944]
+                  - cell "Pensions" [ref=f7e945]
+                  - cell "Bargur" [ref=f7e946]
+                  - cell [ref=f7e947]:
+                    - generic [ref=f7e948]:
+                      - generic [aria-hidden] [ref=f7e949]: error
+                      - text: "96"
+                  - cell [ref=f7e950]:
+                    - generic [aria-hidden] [ref=f7e951]: chevron_right
+                - row [ref=f7e952] [cursor=pointer]:
+                  - cell "Mobile number mismatch" [ref=f7e953]
+                  - cell "Ration card" [ref=f7e954]
+                  - cell "Krishnagiri" [ref=f7e955]
+                  - cell [ref=f7e956]:
+                    - generic [ref=f7e957]:
+                      - generic [aria-hidden] [ref=f7e958]: warning
+                      - text: "640"
+                  - cell [ref=f7e959]:
+                    - generic [aria-hidden] [ref=f7e960]: chevron_right
+      - generic [ref=f7e961]:
+        - generic [ref=f7e963]:
+          - generic [aria-hidden] [ref=f7e965]: home_work
+          - generic [ref=f7e966]:
+            - heading "Housing progress" [level=2] [ref=f7e967]
+            - paragraph [ref=f7e968]: PMAY-G and CM Solar Powered Housing
+        - list [ref=f7e969]:
+          - listitem [ref=f7e970]:
+            - generic [ref=f7e972]:
+              - generic [ref=f7e973]: Sanctioned
+              - generic [ref=f7e974]: 4,820
+          - listitem [ref=f7e977]:
+            - generic [ref=f7e979]:
+              - generic [ref=f7e980]: Foundation
+              - generic [ref=f7e981]: 4,610
+          - listitem [ref=f7e984]:
+            - generic [ref=f7e986]:
+              - generic [ref=f7e987]: Roof level
+              - generic [ref=f7e988]: 3,910
+          - listitem [ref=f7e991]:
+            - generic [ref=f7e993]:
+              - generic [ref=f7e994]: Completed
+              - generic [ref=f7e995]: 2,984

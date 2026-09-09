@@ -128,6 +128,41 @@ export function Tag({ label, className = '' }: { label: Bi | string; className?:
  * Stat tile — a headline number needs no plot; a sparkline is optional.
  * ------------------------------------------------------------------ */
 
+/**
+ * Per-tone gradients for the KPI tile: the top rule, the meter fill, and the
+ * corner glow that `.stat-tile` reads from the `--stat-glow` custom property.
+ */
+const STAT_TONE: Record<
+  'primary' | 'good' | 'warning' | 'critical' | 'viz-1',
+  { bar: string; meter: string; glow: string }
+> = {
+  primary: {
+    bar: 'from-[#5c0510] via-[#8c2529] to-[#ecc246]',
+    meter: 'from-[#7b1e23] to-[#5c0510]',
+    glow: '[--stat-glow:rgba(92,5,16,0.11)]',
+  },
+  good: {
+    bar: 'from-[#067a06] via-[#0ca30c] to-[#8fd98f]',
+    meter: 'from-[#0ca30c] to-[#067a06]',
+    glow: '[--stat-glow:rgba(12,163,12,0.14)]',
+  },
+  warning: {
+    bar: 'from-[#c98d00] via-[#fab219] to-[#ffe3a1]',
+    meter: 'from-[#fab219] to-[#d99400]',
+    glow: '[--stat-glow:rgba(250,178,25,0.2)]',
+  },
+  critical: {
+    bar: 'from-[#9c1f1f] via-[#d03b3b] to-[#f3aeae]',
+    meter: 'from-[#d03b3b] to-[#9c1f1f]',
+    glow: '[--stat-glow:rgba(208,59,59,0.15)]',
+  },
+  'viz-1': {
+    bar: 'from-[#184f95] via-[#2a78d6] to-[#a8cdf7]',
+    meter: 'from-[#2a78d6] to-[#184f95]',
+    glow: '[--stat-glow:rgba(42,120,214,0.15)]',
+  },
+}
+
 export function Stat({
   label,
   value,
@@ -156,13 +191,7 @@ export function Stat({
       : deltaTone === 'bad'
         ? 'text-crit'
         : 'text-on-surface-variant'
-  const meterClass = {
-    primary: 'bg-primary',
-    good: 'bg-good',
-    warning: 'bg-warning',
-    critical: 'bg-crit',
-    'viz-1': 'bg-viz-1',
-  }[meterTone]
+  const tone = STAT_TONE[meterTone]
 
   const Tag_ = onClick ? 'button' : 'div'
 
@@ -170,13 +199,13 @@ export function Stat({
     <Tag_
       {...(onClick ? { type: 'button' as const, onClick } : {})}
       data-print="page"
-      className={`card relative flex min-w-0 flex-col justify-between gap-2 overflow-hidden p-3.5 text-left sm:p-4 ${
+      className={`stat-tile card relative flex min-w-0 flex-col justify-between gap-2 overflow-hidden p-3.5 text-left sm:p-4 ${tone.glow} ${
         onClick ? 'card-lift cursor-pointer' : ''
       }`}
     >
       <span
         aria-hidden="true"
-        className={`absolute inset-x-0 top-0 h-[3px] ${meterClass} opacity-75`}
+        className={`absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r ${tone.bar}`}
       />
       <span className="font-label-sm text-label-sm font-semibold tracking-wide text-on-surface-variant uppercase">
         {t(label)}
@@ -196,9 +225,9 @@ export function Stat({
         <span className="font-body-sm text-body-sm text-on-surface-variant">{t(footnote)}</span>
       )}
       {meter !== undefined && (
-        <span className="block h-1.5 w-full overflow-hidden rounded-full bg-surface-container">
+        <span className="block h-1.5 w-full overflow-hidden rounded-full bg-surface-container shadow-[inset_0_1px_1px_rgba(20,14,12,0.08)]">
           <span
-            className={`block h-full rounded-full ${meterClass}`}
+            className={`block h-full rounded-full bg-gradient-to-r ${tone.meter}`}
             style={{ width: `${Math.max(0, Math.min(100, meter))}%` }}
           />
         </span>

@@ -6,28 +6,32 @@ import { Panel, PanelHead, Segmented, Stat, StatGrid, Status } from '../componen
 import { BarList, ColumnChart, SERIES } from '../components/ui/Charts'
 import { DataTable, type Column } from '../components/ui/DataTable'
 import { DrillDrawer, type Drill } from '../components/ui/Drawer'
-import { DESIG, MONTHS, SRC, TALUKS } from '../data/common'
+import { DESIG, MONTHS, SRC, TALUK_DESKS, TALUKS } from '../data/common'
 
 type TalukRow = {
-  id: string
+  id: keyof typeof TALUK_DESKS
   taluk: (typeof TALUKS)[keyof typeof TALUKS]
-  tahsildar: string
-  phone: string
   patta: number
   beyondSla: number
   fmb: number
   aRegister: number
   encroach: number
+  oldestDays: number
 }
 
+/**
+ * Taluk register. The columns are designed to add up to the tiles above the
+ * table: patta 3,038 · beyond SLA 214 · FMB 842 · A-Register 396 · encroachment
+ * 287. `oldestDays` is the age of the single oldest live file in that taluk.
+ */
 const ROWS: TalukRow[] = [
-  { id: 'hosur', taluk: TALUKS.hosur, tahsildar: 'M. Anbarasi', phone: '+914344222101', patta: 812, beyondSla: 74, fmb: 208, aRegister: 96, encroach: 63 },
-  { id: 'krishnagiri', taluk: TALUKS.krishnagiri, tahsildar: 'K. Sekar', phone: '+914343232102', patta: 604, beyondSla: 41, fmb: 166, aRegister: 71, encroach: 48 },
-  { id: 'shoolagiri', taluk: TALUKS.shoolagiri, tahsildar: 'P. Devi', phone: '+914344222103', patta: 431, beyondSla: 33, fmb: 121, aRegister: 54, encroach: 39 },
-  { id: 'denkanikottai', taluk: TALUKS.denkanikottai, tahsildar: 'R. Vinoth', phone: '+914347222104', patta: 388, beyondSla: 28, fmb: 118, aRegister: 62, encroach: 71 },
-  { id: 'pochampalli', taluk: TALUKS.pochampalli, tahsildar: 'S. Kavitha', phone: '+914343222105', patta: 296, beyondSla: 17, fmb: 84, aRegister: 38, encroach: 22 },
-  { id: 'uthangarai', taluk: TALUKS.uthangarai, tahsildar: 'G. Murugan', phone: '+914343222106', patta: 274, beyondSla: 14, fmb: 79, aRegister: 44, encroach: 26 },
-  { id: 'bargur', taluk: TALUKS.bargur, tahsildar: 'A. Jothi', phone: '+914343222107', patta: 233, beyondSla: 7, fmb: 66, aRegister: 31, encroach: 18 },
+  { id: 'hosur', taluk: TALUKS.hosur, patta: 812, beyondSla: 74, fmb: 208, aRegister: 96, encroach: 63, oldestDays: 96 },
+  { id: 'krishnagiri', taluk: TALUKS.krishnagiri, patta: 604, beyondSla: 41, fmb: 166, aRegister: 71, encroach: 48, oldestDays: 74 },
+  { id: 'shoolagiri', taluk: TALUKS.shoolagiri, patta: 431, beyondSla: 33, fmb: 121, aRegister: 54, encroach: 39, oldestDays: 68 },
+  { id: 'denkanikottai', taluk: TALUKS.denkanikottai, patta: 388, beyondSla: 28, fmb: 118, aRegister: 62, encroach: 71, oldestDays: 61 },
+  { id: 'pochampalli', taluk: TALUKS.pochampalli, patta: 296, beyondSla: 17, fmb: 84, aRegister: 38, encroach: 22, oldestDays: 48 },
+  { id: 'uthangarai', taluk: TALUKS.uthangarai, patta: 274, beyondSla: 14, fmb: 79, aRegister: 44, encroach: 26, oldestDays: 42 },
+  { id: 'bargur', taluk: TALUKS.bargur, patta: 233, beyondSla: 7, fmb: 66, aRegister: 31, encroach: 18, oldestDays: 31 },
 ]
 
 const CATEGORIES = [
@@ -39,12 +43,12 @@ const CATEGORIES = [
 ]
 
 const SRO = [
-  { label: MONTHS[0], a: 18.2, b: 20 },
-  { label: MONTHS[1], a: 21.4, b: 20 },
-  { label: MONTHS[2], a: 19.8, b: 21 },
-  { label: MONTHS[3], a: 23.6, b: 21 },
-  { label: MONTHS[4], a: 22.1, b: 22 },
-  { label: MONTHS[5], a: 20.4, b: 22 },
+  { label: MONTHS[0], a: 18.2, b: 23 },
+  { label: MONTHS[1], a: 21.4, b: 23 },
+  { label: MONTHS[2], a: 19.8, b: 24 },
+  { label: MONTHS[3], a: 23.6, b: 24 },
+  { label: MONTHS[4], a: 22.1, b: 24 },
+  { label: MONTHS[5], a: 20.4, b: 24 },
 ]
 
 type LaRow = {
@@ -55,14 +59,16 @@ type LaRow = {
   awarded: number
   paid: number
   stage: ReturnType<typeof bi>
+  holders: number
+  villages: string
   tone: 'good' | 'warning' | 'serious' | 'critical'
 }
 
 const LA: LaRow[] = [
-  { id: 'nhai-1', project: bi('Hosur ring bypass Segment II', 'ஓசூர் வளைய புறவழிச்சாலை பகுதி II'), agency: bi('NHAI', 'தேசிய நெடுஞ்சாலை ஆணையம்'), extent: '42.6 ha', awarded: 86.4, paid: 78.0, stage: bi('Award payment', 'இழப்பீடு வழங்கல்'), tone: 'critical' },
-  { id: 'sipcot-3', project: bi('SIPCOT Hosur Phase III', 'சிப்காட் ஓசூர் கட்டம் III'), agency: bi('SIPCOT', 'சிப்காட்'), extent: '318 ha', awarded: 412.0, paid: 366.5, stage: bi('Possession', 'கையகப்படுத்தல்'), tone: 'warning' },
-  { id: 'corridor', project: bi('Chennai–Bengaluru corridor link', 'சென்னை–பெங்களூரு தொழில் வழித்தட இணைப்பு'), agency: bi('CBIC', 'தொழில் வழித்தட நிறுவனம்'), extent: '96 ha', awarded: 121.8, paid: 121.8, stage: bi('Completed', 'நிறைவு'), tone: 'good' },
-  { id: 'rail', project: bi('Hosur–Thally road widening', 'ஓசூர்–தளி சாலை அகலப்படுத்தல்'), agency: bi('Highways', 'நெடுஞ்சாலைத் துறை'), extent: '18.2 ha', awarded: 34.2, paid: 19.6, stage: bi('3(1) notification', '3(1) அறிவிக்கை'), tone: 'serious' },
+  { id: 'nhai-1', project: bi('Hosur ring bypass Segment II', 'ஓசூர் வளைய புறவழிச்சாலை பகுதி II'), agency: bi('NHAI', 'தேசிய நெடுஞ்சாலை ஆணையம்'), extent: '42.6 ha', awarded: 86.4, paid: 78.0, stage: bi('Award payment', 'இழப்பீடு வழங்கல்'), holders: 184, villages: 'Moranapalli, Zuzuvadi', tone: 'critical' },
+  { id: 'sipcot-3', project: bi('SIPCOT Hosur Phase III', 'சிப்காட் ஓசூர் கட்டம் III'), agency: bi('SIPCOT', 'சிப்காட்'), extent: '318 ha', awarded: 412.0, paid: 366.5, stage: bi('Possession', 'கையகப்படுத்தல்'), holders: 642, villages: 'Belathur, Onnalvadi', tone: 'warning' },
+  { id: 'corridor', project: bi('Chennai–Bengaluru corridor link', 'சென்னை–பெங்களூரு தொழில் வழித்தட இணைப்பு'), agency: bi('CBIC', 'தொழில் வழித்தட நிறுவனம்'), extent: '96 ha', awarded: 121.8, paid: 121.8, stage: bi('Completed', 'நிறைவு'), holders: 212, villages: 'Samalpallam, Achettipalli', tone: 'good' },
+  { id: 'rail', project: bi('Hosur–Thally road widening', 'ஓசூர்–தளி சாலை அகலப்படுத்தல்'), agency: bi('Highways', 'நெடுஞ்சாலைத் துறை'), extent: '18.2 ha', awarded: 34.2, paid: 19.6, stage: bi('Sec 11 notification', 'பிரிவு 11 அறிவிக்கை'), holders: 96, villages: 'Kothapalli, Madhagondapalli', tone: 'serious' },
 ]
 
 export function RevenuePage() {
@@ -79,7 +85,7 @@ export function RevenuePage() {
         <span className="flex flex-col">
           <span className="font-label-md text-label-md font-bold">{t(row.taluk)}</span>
           <span className="font-label-sm text-label-sm text-on-surface-variant">
-            {row.tahsildar}
+            {TALUK_DESKS[row.id].name}
           </span>
         </span>
       ),
@@ -146,7 +152,7 @@ export function RevenuePage() {
         <Stat label={bi('FMB sketch requests', 'எஃப்.எம்.பி கோரிக்கை')} value={num(842)} footnote={bi('Avg 18 days', 'சராசரி 18 நாட்கள்')} />
         <Stat label={bi('SRO collection', 'சார்பதிவாளர் வசூல்')} value="₹125.5" unit="Cr" delta="88.4%" deltaTone="good" meter={88.4} />
         <Stat label={bi('Encroachment cases', 'ஆக்கிரமிப்பு வழக்குகள்')} value={num(287)} footnote={bi('Natham & poromboke', 'நத்தம் & புறம்போக்கு')} />
-        <Stat label={bi('Land acquisition live', 'நில கையகப்படுத்தல்')} value="4" unit={t(bi('projects', 'திட்டங்கள்'))} footnote={bi('₹654 Cr awarded', '₹654 கோடி இழப்பீடு')} />
+        <Stat label={bi('Land acquisition', 'நில கையகப்படுத்தல்')} value="4" unit={t(bi('projects', 'திட்டங்கள்'))} footnote={bi('3 live · ₹654 Cr awarded', '3 நடப்பில் · ₹654 கோடி இழப்பீடு')} />
       </StatGrid>
 
       <div className="grid gap-4 xl:grid-cols-3">
@@ -184,9 +190,13 @@ export function RevenuePage() {
                     { label: bi('FMB sketches', 'எஃப்.எம்.பி'), value: num(row.fmb) },
                     { label: bi('A-Register', 'அ-பதிவேடு'), value: num(row.aRegister) },
                     { label: bi('Encroachment', 'ஆக்கிரமிப்பு'), value: num(row.encroach) },
-                    { label: bi('Oldest file', 'மிகப் பழைய கோப்பு'), value: '96 days' },
+                    { label: bi('Oldest file', 'மிகப் பழைய கோப்பு'), value: `${num(row.oldestDays)} ${t(ui.days)}` },
                   ],
-                  officer: { name: row.tahsildar, designation: DESIG.tahsildar, phone: row.phone },
+                  officer: {
+                    name: TALUK_DESKS[row.id].name,
+                    designation: DESIG.tahsildar,
+                    phone: TALUK_DESKS[row.id].phone,
+                  },
                   audit: { updated: '24 Oct 08:30', by: 'Star 2.0 nightly sync', source: SRC.eservices },
                   actions: [{ label: bi('Issue directive', 'உத்தரவு பிறப்பி'), icon: 'campaign', variant: 'accent' }],
                 })
@@ -212,7 +222,7 @@ export function RevenuePage() {
           />
           <div className="mt-3 flex flex-col gap-1 rounded bg-surface-container-low p-2.5">
             <span className="font-label-sm text-label-sm text-on-surface-variant">
-              {t(bi('Q3 district target', 'காலாண்டு 3 மாவட்ட இலக்கு'))}
+              {t(bi('May–Oct against target', 'மே–அக் இலக்கை ஒப்பிட'))}
             </span>
             <span className="font-label-md text-label-md font-bold text-on-surface">
               ₹125.5 Cr / ₹142 Cr · 88.4%
@@ -244,8 +254,11 @@ export function RevenuePage() {
                 { label: bi('Extent', 'பரப்பு'), value: row.extent },
                 { label: bi('Award value', 'இழப்பீட்டுத் தொகை'), value: `₹${num(row.awarded, 1)} Cr` },
                 { label: bi('Disbursed', 'வழங்கியது'), value: `₹${num(row.paid, 1)} Cr` },
-                { label: bi('Beneficiaries', 'பயனாளிகள்'), value: '184 patta holders' },
-                { label: bi('Village', 'கிராமம்'), value: 'Moranapalli, Zuzuvadi' },
+                {
+                  label: bi('Beneficiaries', 'பயனாளிகள்'),
+                  value: `${num(row.holders)} ${t(bi('patta holders', 'பட்டாதாரர்கள்'))}`,
+                },
+                { label: bi('Villages', 'கிராமங்கள்'), value: row.villages },
               ],
               officer: { name: 'K. Rajavel', designation: DESIG.dro, phone: '+914343233333' },
               audit: { updated: '23 Oct 17:40', by: 'Special Tahsildar (LA)', source: SRC.survey },

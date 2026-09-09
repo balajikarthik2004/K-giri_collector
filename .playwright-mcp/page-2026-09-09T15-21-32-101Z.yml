@@ -1,0 +1,321 @@
+- generic [ref=f8e553]:
+  - banner [ref=f8e554]:
+    - button "Krishnagiri District Collectorate Command Portal" [ref=f8e556]:
+      - generic [ref=f8e557]:
+        - generic [ref=f8e558]: Krishnagiri District
+        - generic [ref=f8e559]: Collectorate Command Portal
+    - generic [ref=f8e560]:
+      - generic [aria-hidden]: search
+      - combobox "Search" [ref=f8e561]
+      - generic: ⌘K
+    - generic [ref=f8e562]:
+      - generic [ref=f8e563]:
+        - generic [ref=f8e564]: 20:51 IST
+        - generic [ref=f8e565]: 24 Oct 2024 · Thu
+      - generic [ref=f8e568]:
+        - generic [aria-hidden] [ref=f8e569]: switch_account
+        - generic [ref=f8e570]:
+          - generic [ref=f8e571]: Collector
+          - generic [ref=f8e572]: Krishnagiri district
+        - generic [aria-hidden] [ref=f8e573]: expand_more
+        - combobox "Role" [ref=f8e574] [cursor=pointer]:
+          - option "Collector" [selected]
+          - option "RDO"
+          - option "BDO"
+          - option "Tahsildar"
+          - option "Dept. head"
+      - generic [ref=f8e575]:
+        - button "தமிழ்" [ref=f8e576]
+        - button "EN" [ref=f8e577]
+      - button "Action queue" [ref=f8e579]:
+        - generic [aria-hidden] [ref=f8e580]: notifications
+        - generic [ref=f8e581]: "8"
+      - button "Thiru C. Dinesh Kumar, IAS Thiru C. Dinesh Kumar, IAS District Collector & Magistrate" [ref=f8e583]:
+        - img "Thiru C. Dinesh Kumar, IAS" [ref=f8e584]
+        - generic [ref=f8e585]:
+          - generic [ref=f8e586]: Thiru C. Dinesh Kumar, IAS
+          - generic [ref=f8e587]: District Collector & Magistrate
+  - complementary [ref=f8e588]:
+    - navigation [ref=f8e589]:
+      - generic [ref=f8e590]:
+        - paragraph [ref=f8e591]: Command
+        - button "My day" [ref=f8e592]:
+          - generic [aria-hidden] [ref=f8e593]: overview
+        - button "Action queue 8" [ref=f8e595]:
+          - generic [aria-hidden] [ref=f8e596]: priority_high
+          - generic [ref=f8e597]: Action queue
+          - generic [ref=f8e598]: "8"
+        - button "Map & drill-down" [ref=f8e599]:
+          - generic [aria-hidden] [ref=f8e600]: map
+      - generic [ref=f8e602]:
+        - paragraph [ref=f8e603]: Administration
+        - button "Revenue & land 214" [ref=f8e604]:
+          - generic [aria-hidden] [ref=f8e605]: real_estate_agent
+          - generic [ref=f8e606]: Revenue & land
+          - generic [ref=f8e607]: "214"
+        - button "Grievances & CM cell 96" [ref=f8e608]:
+          - generic [aria-hidden] [ref=f8e609]: mark_email_unread
+          - generic [ref=f8e610]: Grievances & CM cell
+          - generic [ref=f8e611]: "96"
+        - button "Finance & audit" [ref=f8e612]:
+          - generic [aria-hidden] [ref=f8e613]: account_balance_wallet
+        - button "Staff & attendance" [ref=f8e615]:
+          - generic [aria-hidden] [ref=f8e616]: badge
+        - button "Elections & civic" [ref=f8e618]:
+          - generic [aria-hidden] [ref=f8e619]: how_to_vote
+      - generic [ref=f8e621]:
+        - paragraph [ref=f8e622]: Development
+        - button "Schemes & DBT" [ref=f8e623]:
+          - generic [aria-hidden] [ref=f8e624]: volunteer_activism
+        - button "Agriculture & water" [ref=f8e626]:
+          - generic [aria-hidden] [ref=f8e627]: agriculture
+        - button "Industry & jobs" [ref=f8e629]:
+          - generic [aria-hidden] [ref=f8e630]: factory
+        - button "Water & infrastructure" [ref=f8e632]:
+          - generic [aria-hidden] [ref=f8e633]: water_drop
+      - generic [ref=f8e635]:
+        - paragraph [ref=f8e636]: Human development
+        - button "Health" [ref=f8e637]:
+          - generic [aria-hidden] [ref=f8e638]: local_hospital
+        - button "Education" [ref=f8e640]:
+          - generic [aria-hidden] [ref=f8e641]: school
+      - generic [ref=f8e643]:
+        - paragraph [ref=f8e644]: Safety
+        - button "Law, order & disaster" [ref=f8e645]:
+          - generic [aria-hidden] [ref=f8e646]: shield
+  - main [ref=f8e649]:
+    - generic [ref=f8e650]:
+      - generic [ref=f8e652]:
+        - generic [aria-hidden] [ref=f8e654]: overview
+        - generic [ref=f8e655]:
+          - heading "Today's Overview" [level=1] [ref=f8e656]
+          - paragraph [ref=f8e657]: 24 Oct 2024 · Thursday
+      - generic [ref=f8e658]:
+        - button "Files awaiting my signature 14 6 urgent e-Mudhra token connected" [ref=f8e659] [cursor=pointer]:
+          - generic [ref=f8e661]: Files awaiting my signature
+          - generic [ref=f8e662]:
+            - generic [ref=f8e663]: "14"
+            - generic [ref=f8e664]: 6 urgent
+          - generic [ref=f8e665]: e-Mudhra token connected
+        - button "Escalated overnight 9 3 CM Cell" [ref=f8e666] [cursor=pointer]:
+          - generic [ref=f8e668]: Escalated overnight
+          - generic [ref=f8e669]:
+            - generic [ref=f8e670]: "9"
+            - generic [ref=f8e671]: 3 CM Cell
+        - button "SLA breaches 59 +4 today" [ref=f8e672] [cursor=pointer]:
+          - generic [ref=f8e674]: SLA breaches
+          - generic [ref=f8e675]:
+            - generic [ref=f8e676]: "59"
+            - generic [ref=f8e677]: +4 today
+        - generic [ref=f8e678]:
+          - generic [ref=f8e680]: Court deadlines this week
+          - generic [ref=f8e681]: "3"
+          - generic [ref=f8e683]: 1 due tomorrow
+        - button "DBT released today ₹14.82 Cr 99.4%" [ref=f8e684] [cursor=pointer]:
+          - generic [ref=f8e686]: DBT released today
+          - generic [ref=f8e687]:
+            - generic [ref=f8e688]: ₹14.82
+            - generic [ref=f8e689]: Cr
+            - generic [ref=f8e690]: 99.4%
+      - generic [ref=f8e693]:
+        - generic [ref=f8e694]:
+          - generic [ref=f8e695]:
+            - generic [ref=f8e696]:
+              - generic [aria-hidden] [ref=f8e698]: event
+              - generic [ref=f8e699]:
+                - heading "Today's schedule" [level=2] [ref=f8e700]
+                - paragraph [ref=f8e701]: 4 engagements · 1 high priority
+            - button "Block time" [ref=f8e703]:
+              - generic [aria-hidden] [ref=f8e704]: add
+          - list [ref=f8e706]:
+            - listitem [ref=f8e707]:
+              - generic [ref=f8e708]:
+                - text: 09:00
+                - generic [ref=f8e709]: –10:15
+              - generic [ref=f8e710]:
+                - generic [ref=f8e711]: File clearance — Collector chamber
+                - generic [ref=f8e712]: 14 files pending signature
+              - generic [ref=f8e713]:
+                - generic [aria-hidden] [ref=f8e714]: radio_button_unchecked
+                - text: Desk
+            - listitem [ref=f8e715]:
+              - generic [ref=f8e716]:
+                - text: 10:30
+                - generic [ref=f8e717]: –13:00
+              - generic [ref=f8e718]:
+                - generic [ref=f8e719]: Grievance day — public hearing
+                - generic [ref=f8e720]: Collectorate hall · 380 petitions
+              - generic [ref=f8e721]:
+                - generic [aria-hidden] [ref=f8e722]: info
+                - text: Public
+            - listitem [ref=f8e723]:
+              - generic [ref=f8e724]:
+                - text: 14:30
+                - generic [ref=f8e725]: –16:00
+              - generic [ref=f8e726]:
+                - generic [ref=f8e727]: Chief Secretary video conference
+                - generic [ref=f8e728]: Jal Jeevan Mission · Breakfast scheme Phase-II
+              - generic [ref=f8e729]:
+                - generic [aria-hidden] [ref=f8e730]: dangerous
+                - text: Priority
+            - listitem [ref=f8e731]:
+              - generic [ref=f8e732]:
+                - text: 16:45
+                - generic [ref=f8e733]: –18:30
+              - generic [ref=f8e734]:
+                - generic [ref=f8e735]: SIPCOT Phase III site inspection
+                - generic [ref=f8e736]: Moranapalli, Hosur North
+              - generic [ref=f8e737]:
+                - generic [aria-hidden] [ref=f8e738]: radio_button_unchecked
+                - text: Field
+        - generic [ref=f8e739]:
+          - generic [ref=f8e741]:
+            - generic [aria-hidden] [ref=f8e743]: rainy
+            - generic [ref=f8e744]:
+              - heading "Weather & rainfall" [level=2] [ref=f8e745]
+              - paragraph [ref=f8e746]: Mango belt · Thenpennai basin
+          - generic [ref=f8e747]:
+            - generic [ref=f8e748]:
+              - paragraph [ref=f8e749]: 28°C
+              - paragraph [ref=f8e750]: Krishnagiri HQ · humid
+            - generic [ref=f8e751]:
+              - generic [aria-hidden] [ref=f8e752]: check_circle
+              - text: No warning
+          - generic [ref=f8e753]:
+            - generic [ref=f8e754]:
+              - paragraph [ref=f8e755]: Today
+              - paragraph [ref=f8e756]: 14.2 mm
+            - generic [ref=f8e757]:
+              - paragraph [ref=f8e758]: Since 1 Jun
+              - paragraph [ref=f8e759]: 412 mm
+            - generic [ref=f8e760]:
+              - paragraph [ref=f8e761]: vs normal
+              - paragraph [ref=f8e762]: +8%
+          - paragraph [ref=f8e763]: Last 7 days (mm)
+          - generic [ref=f8e768]:
+            - generic [ref=f8e770]:
+              - generic [ref=f8e771]: Krishnagiri (KRP)
+              - generic [ref=f8e772]: 42.1 / 52 ft
+            - generic [ref=f8e776]:
+              - generic [ref=f8e777]: Kelavarapalli
+              - generic [ref=f8e778]: 38.4 / 44 ft
+            - generic [ref=f8e782]:
+              - generic [ref=f8e783]: Barur
+              - generic [ref=f8e784]: 21.6 / 28 ft
+            - generic [ref=f8e788]:
+              - generic [ref=f8e789]: Pambar
+              - generic [ref=f8e790]: 9.8 / 16 ft
+      - generic [ref=f8e793]:
+        - generic [ref=f8e794]:
+          - generic [ref=f8e795]:
+            - generic [ref=f8e796]:
+              - generic [aria-hidden] [ref=f8e798]: notifications_active
+              - generic [ref=f8e799]:
+                - heading "Escalated overnight" [level=2] [ref=f8e800]
+                - paragraph [ref=f8e801]: Petitions raised to Collector
+            - button "Drill down" [ref=f8e803]:
+              - generic [aria-hidden] [ref=f8e804]: arrow_forward
+          - list [ref=f8e805]:
+            - listitem [ref=f8e806]:
+              - button "CM/KRI/88214 CM Cell Drinking water shortage — Berigai panchayat BDO Shoolagiri" [ref=f8e807]:
+                - generic [ref=f8e808]:
+                  - generic [ref=f8e809]: CM/KRI/88214
+                  - generic [ref=f8e810]: CM Cell
+                - paragraph [ref=f8e811]: Drinking water shortage — Berigai panchayat
+                - paragraph [ref=f8e812]: BDO Shoolagiri
+            - listitem [ref=f8e813]:
+              - button "US/KRI/40122 Ungaludan Stalin Patta transfer delay — Kelamangalam Tahsildar Denkanikottai" [ref=f8e814]:
+                - generic [ref=f8e815]:
+                  - generic [ref=f8e816]: US/KRI/40122
+                  - generic [ref=f8e817]: Ungaludan Stalin
+                - paragraph [ref=f8e818]: Patta transfer delay — Kelamangalam
+                - paragraph [ref=f8e819]: Tahsildar Denkanikottai
+            - listitem [ref=f8e820]:
+              - button "PG/KRI/7781 CPGRAMS Old age pension arrears — 3 months DSWO" [ref=f8e821]:
+                - generic [ref=f8e822]:
+                  - generic [ref=f8e823]: PG/KRI/7781
+                  - generic [ref=f8e824]: CPGRAMS
+                - paragraph [ref=f8e825]: Old age pension arrears — 3 months
+                - paragraph [ref=f8e826]: DSWO
+        - generic [ref=f8e827]:
+          - generic [ref=f8e829]:
+            - generic [aria-hidden] [ref=f8e831]: gavel
+            - generic [ref=f8e832]:
+              - heading "Court directions" [level=2] [ref=f8e833]
+              - paragraph [ref=f8e834]: Madras High Court — deadlines
+          - list [ref=f8e835]:
+            - listitem [ref=f8e836]:
+              - generic [ref=f8e837]:
+                - generic [ref=f8e838]: WP 2841/24
+                - generic [ref=f8e839]:
+                  - generic [aria-hidden] [ref=f8e840]: dangerous
+                  - text: 1 day
+              - paragraph [ref=f8e841]: Shoolagiri Periya Eri encroachment
+              - paragraph [ref=f8e842]: Counter affidavit due tomorrow
+            - listitem [ref=f8e843]:
+              - generic [ref=f8e844]:
+                - generic [ref=f8e845]: WP 3190/24
+                - generic [ref=f8e846]:
+                  - generic [aria-hidden] [ref=f8e847]: error
+                  - text: 4 days
+              - paragraph [ref=f8e848]: Hosur bypass land compensation
+              - paragraph [ref=f8e849]: Compliance report in 4 days
+            - listitem [ref=f8e850]:
+              - generic [ref=f8e851]:
+                - generic [ref=f8e852]: CONT 44/24
+                - generic [ref=f8e853]:
+                  - generic [aria-hidden] [ref=f8e854]: warning
+                  - text: 9 days
+              - paragraph [ref=f8e855]: Pochampalli patta contempt notice
+              - paragraph [ref=f8e856]: Personal appearance in 9 days
+        - generic [ref=f8e857]:
+          - generic [ref=f8e858]:
+            - generic [ref=f8e860]:
+              - generic [aria-hidden] [ref=f8e862]: star
+              - generic [ref=f8e863]:
+                - heading "VIP visits" [level=2] [ref=f8e864]
+                - paragraph [ref=f8e865]: Next 7 days
+            - list [ref=f8e866]:
+              - listitem [ref=f8e867]:
+                - generic [ref=f8e868]:
+                  - paragraph [ref=f8e869]: Hon. Minister, Rural Development
+                  - generic [ref=f8e870]: 26 Oct · 11:00
+                - paragraph [ref=f8e871]: Kalaignar Kanavu Illam handover, Kaveripattinam
+              - listitem [ref=f8e872]:
+                - generic [ref=f8e873]:
+                  - paragraph [ref=f8e874]: Secretary, Industries
+                  - generic [ref=f8e875]: 28 Oct · 15:30
+                - paragraph [ref=f8e876]: EV ancillary cluster review, Hosur
+              - listitem [ref=f8e877]:
+                - generic [ref=f8e878]:
+                  - paragraph [ref=f8e879]: District MP
+                  - generic [ref=f8e880]: 29 Oct · 10:00
+                - paragraph [ref=f8e881]: DISHA committee meeting
+          - generic [ref=f8e882]:
+            - generic [ref=f8e884]:
+              - generic [aria-hidden] [ref=f8e886]: local_police
+              - generic [ref=f8e887]:
+                - heading "Law & order flash" [level=2] [ref=f8e888]
+                - paragraph [ref=f8e889]: Last 24 hours · SP control room
+            - list [ref=f8e890]:
+              - listitem [ref=f8e891]:
+                - paragraph [ref=f8e892]: Cognisable FIRs (24 h)
+                - paragraph [ref=f8e893]:
+                  - generic [ref=f8e894]: "14"
+              - listitem [ref=f8e895]:
+                - paragraph [ref=f8e896]: Road fatalities NH-44
+                - paragraph [ref=f8e897]:
+                  - generic [ref=f8e898]: "1"
+                  - generic [ref=f8e899]: Watch
+              - listitem [ref=f8e900]:
+                - paragraph [ref=f8e901]: Prohibition raids
+                - paragraph [ref=f8e902]:
+                  - generic [ref=f8e903]: "6"
+              - listitem [ref=f8e904]:
+                - paragraph [ref=f8e905]: Communal / law-order incidents
+                - paragraph [ref=f8e906]:
+                  - generic [ref=f8e907]: "0"
+                  - generic [ref=f8e908]: Normal
+      - paragraph [ref=f8e909]:
+        - generic [aria-hidden] [ref=f8e910]: verified_user
+        - text: Live from TN e-Governance State Data Center · Optimised for 4G · 15 modules

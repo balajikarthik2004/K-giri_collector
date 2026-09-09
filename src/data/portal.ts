@@ -3,13 +3,23 @@
  * Values mirror the TN e-Governance State Data Center feed (refreshed every 5 mins).
  */
 
-export const EMBLEM_SRC = '/tn-emblem.svg'
+import emblemUrl from '../assets/logo.png'
+import portraitUrl from '../assets/person.png'
 
-export const PORTRAIT_SRC =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuA519cqPCDtWo1nURw_YjCgjOSLcVYfaX7C3c4KQZWpMlWZGf7xNJkR_AeceBE1ssGrCl4T_Ftt9JOl-m4H2CRwbecnjruRDhJIx8omsCcdUUs2rfkHiY-OpDVmS33y0T9pPt4AFYc0s8XALzk9Fc1GzkuRQLVElX8KCjvZrBQ2ehSz5W-lWw75SjoVi30iS-vc4jqAnvfMGffdGZYxJY9CQfLWWQaOgbXnfEqFKq0dzsBTdwnLIUA'
+/** Tamil Nadu state emblem, served from the bundled asset. */
+export const EMBLEM_SRC = emblemUrl
 
-/** Header chip reuses the official portrait. */
-export const AVATAR_SRC = PORTRAIT_SRC
+/** Official portrait of the District Collector. */
+export const PORTRAIT_SRC = portraitUrl
 
-export const MAP_SRC =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuC_L3kZpDEIDlf8xO03UkA0tmtAEK0xDMwW1zOMH1eqysXHXekOBtm07s-glxFKZ4yvQ7BWYqsG94ep8M_cPS27ajHW9YvLDRvE5_9qIOLgTp50XEx2BLMa1YE4ye4COeV_shv6jLgNd3eO4OtwU_q-nLPs0tmk0DKjA0aC1hN0TyXqeYk7tEK9hp_XEh95BU8aVpdEkW7Otaicp4hdPE7tGWLCry91VW84JwR4wrnTKAxv8CU5SAM'
+/**
+ * The portrait is a wide desk photograph, so any small round chip has to be
+ * zoomed and re-centred on the face. Both values are percentages, which keeps
+ * the crop identical at every avatar size.
+ */
+export const PORTRAIT_FACE_CROP = {
+  backgroundImage: `url(${portraitUrl})`,
+  backgroundSize: '405%',
+  backgroundPosition: '52% 51%',
+  backgroundRepeat: 'no-repeat',
+} as const

@@ -11,6 +11,17 @@ export const TALUKS = {
   shoolagiri: bi('Shoolagiri', 'சூளகிரி'),
 } satisfies Record<string, Bi>
 
+/** Taluk keys in review order — the order TALUK_LIST and the map shapes use. */
+export const TALUK_IDS = [
+  'krishnagiri',
+  'hosur',
+  'denkanikottai',
+  'pochampalli',
+  'uthangarai',
+  'bargur',
+  'shoolagiri',
+] as const
+
 export const TALUK_LIST: Bi[] = [
   TALUKS.krishnagiri,
   TALUKS.hosur,
@@ -20,6 +31,21 @@ export const TALUK_LIST: Bi[] = [
   TALUKS.bargur,
   TALUKS.shoolagiri,
 ]
+
+/**
+ * The Tahsildar holding each taluk desk. Single source for the revenue
+ * register, the map drill-down and the masthead search, so a name only ever
+ * has to be corrected in one place.
+ */
+export const TALUK_DESKS: Record<(typeof TALUK_IDS)[number], { name: string; phone: string }> = {
+  krishnagiri: { name: 'K. Sekar', phone: '+914343232102' },
+  hosur: { name: 'M. Anbarasi', phone: '+914344222101' },
+  denkanikottai: { name: 'R. Vinoth', phone: '+914347222104' },
+  pochampalli: { name: 'S. Kavitha', phone: '+914343222105' },
+  uthangarai: { name: 'G. Murugan', phone: '+914343222106' },
+  bargur: { name: 'A. Jothi', phone: '+914343222107' },
+  shoolagiri: { name: 'P. Devi', phone: '+914344222103' },
+}
 
 export const BLOCKS: Bi[] = [
   bi('Krishnagiri', 'கிருஷ்ணகிரி'),
@@ -52,6 +78,7 @@ export const DESIG = {
   vao: bi('Village Administrative Officer', 'கிராம நிர்வாக அலுவலர்'),
   ee: bi('Executive Engineer', 'செயற்பொறியாளர்'),
   dd: bi('Deputy Director', 'துணை இயக்குநர்'),
+  dswo: bi('District Social Welfare Officer', 'மாவட்ட சமூக நல அலுவலர்'),
   ceo: bi('Chief Educational Officer', 'முதன்மைக் கல்வி அலுவலர்'),
   dms: bi('Joint Director, Health', 'இணை இயக்குநர், சுகாதாரம்'),
   sp: bi('Superintendent of Police', 'காவல் கண்காணிப்பாளர்'),

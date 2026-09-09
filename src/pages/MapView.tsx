@@ -7,8 +7,8 @@ import { Panel, PanelHead, Segmented, Status } from '../components/ui/Primitives
 import { SEQ } from '../components/ui/Charts'
 import { DataTable, type Column } from '../components/ui/DataTable'
 import { DrillDrawer, type Drill } from '../components/ui/Drawer'
-import { BLOCKS, DESIG, SRC, TALUK_LIST } from '../data/common'
-import { MAP_SRC } from '../data/portal'
+import { BLOCKS, DESIG, SRC, TALUK_DESKS, TALUK_IDS, TALUK_LIST } from '../data/common'
+import { DistrictMap } from '../components/ui/DistrictMap'
 
 type Level = 'taluk' | 'block' | 'panchayat' | 'ward'
 type Metric = 'grievances' | 'patta' | 'water' | 'dbt'
@@ -38,23 +38,73 @@ const UNITS: Record<Level, Bi[]> = {
   ward: WARDS,
 }
 
-/** Tahsildar desks, in the same order as TALUK_LIST, matching the revenue register. */
-const TALUK_DESKS = [
-  { name: 'K. Sekar', phone: '+914343232102' },
-  { name: 'M. Anbarasi', phone: '+914344222101' },
-  { name: 'R. Vinoth', phone: '+914347222104' },
-  { name: 'S. Kavitha', phone: '+914343222105' },
-  { name: 'G. Murugan', phone: '+914343222106' },
-  { name: 'A. Jothi', phone: '+914343222107' },
-  { name: 'P. Devi', phone: '+914344222103' },
-]
+/** District totals the map has to reconcile with, taken from the source pages. */
+const METRIC_TOTAL: Record<Metric, number> = {
+  grievances: 557, // Grievances — pending across all five channels
+  patta: 3038, // Revenue — patta transfers pending
+  water: 168, // Infrastructure — habitations below 55 lpcd
+  dbt: 3606, // Schemes — DBT exception records
+}
 
-/** Deterministic pseudo-values so the same unit always reads the same. */
-function valueFor(level: Level, index: number, metric: Metric) {
-  const base = { grievances: 412, patta: 812, water: 46, dbt: 2140 }[metric]
-  const scale = { taluk: 1, block: 0.62, panchayat: 0.18, ward: 0.09 }[level]
-  const wobble = ((index * 37) % 11) / 10 + 0.35
-  return Math.round(base * scale * wobble)
+/**
+ * Size weight per unit, in the order each level lists them. Taluk weights are
+ * the taluk shares from the revenue register and block weights the school
+ * enrolment shares, so the biggest unit is the same one on every screen.
+ * Panchayat and ward weights are the populations themselves.
+ */
+const UNIT_WEIGHT: Record<Level, number[]> = {
+  taluk: [604, 812, 388, 296, 274, 233, 431],
+  block: [28400, 34200, 19600, 12400, 14800, 16200, 11200, 18600, 15400, 13800],
+  panchayat: [7400, 5200, 6100, 4300, 3600, 4900, 5800, 6600, 3200, 4100, 5400, 3800],
+  ward: [11200, 13800, 9400, 12600, 8300, 11800, 7600, 13100, 9100, 10400, 7900, 11900],
+}
+
+/** Taluks and blocks cover the district; the panchayat and ward lists are a sample. */
+const COVERAGE: Record<Level, number> = { taluk: 1, block: 1, panchayat: 0.08, ward: 0.1 }
+
+/** Krishnagiri district, 2011 census. */
+const DISTRICT_POPULATION = 1879809
+
+/** Split a total across weights so the parts always add back to the whole. */
+function distribute(total: number, weights: number[]) {
+  const sum = weights.reduce((acc, weight) => acc + weight, 0)
+  const exact = weights.map((weight) => (total * weight) / sum)
+  const out = exact.map((value) => Math.floor(value))
+  const remainder = total - out.reduce((acc, value) => acc + value, 0)
+  const byFraction = exact
+    .map((value, index) => ({ index, frac: value - Math.floor(value) }))
+    .sort((a, b) => b.frac - a.frac)
+  for (let i = 0; i < remainder; i += 1) out[byFraction[i % byFraction.length].index] += 1
+  return out
+}
+
+/** Population is a property of the place, so it does not move with the metric. */
+function populationFor(level: Level, index: number) {
+  const weights = UNIT_WEIGHT[level]
+  if (level === 'panchayat' || level === 'ward') return weights[index]
+  const sum = weights.reduce((acc, weight) => acc + weight, 0)
+  return Math.round((DISTRICT_POPULATION * weights[index]) / sum / 100) * 100
+}
+
+/** Rows for one level: the metric total split by weight, plus the desk holding it. */
+function buildRows(level: Level, metric: Metric) {
+  const total = Math.round(METRIC_TOTAL[metric] * COVERAGE[level])
+  const values = distribute(total, UNIT_WEIGHT[level])
+  return UNITS[level].map((unit, index) => {
+    // Taluks carry their actual Tahsildar; finer levels roll up to the same desk.
+    const desk = TALUK_DESKS[TALUK_IDS[index % TALUK_IDS.length]]
+    return {
+      id: `${level}-${index}`,
+      unit,
+      value: values[index],
+      population: populationFor(level, index),
+      oldestDays: 24 + ((index * 17) % 68),
+      lastVisit: `${1 + ((index * 5) % 22)} Oct 2024`,
+      officer: desk.name,
+      designation: level === 'taluk' ? DESIG.tahsildar : DESIG.vao,
+      phone: desk.phone,
+    }
+  })
 }
 
 export function MapViewPage() {
@@ -63,22 +113,16 @@ export function MapViewPage() {
   const [metric, setMetric] = useState<Metric>('grievances')
   const [drill, setDrill] = useState<Drill | null>(null)
 
-  const rows = useMemo(
-    () =>
-      UNITS[level].map((unit, index) => {
-        // Taluks carry their actual Tahsildar; finer levels roll up to the same desk.
-        const desk = level === 'taluk' ? TALUK_DESKS[index] : TALUK_DESKS[index % TALUK_DESKS.length]
-        return {
-          id: `${level}-${index}`,
-          unit,
-          value: valueFor(level, index, metric),
-          officer: desk.name,
-          designation: level === 'taluk' ? DESIG.tahsildar : DESIG.vao,
-          phone: desk.phone,
-        }
-      }),
-    [level, metric],
-  )
+  const rows = useMemo(() => buildRows(level, metric), [level, metric])
+
+  /** The map always reads at taluk level, whatever the grid below is showing. */
+  const talukRows = useMemo(() => buildRows('taluk', metric), [metric])
+  const mapUnits = talukRows.map((row, index) => ({
+    id: TALUK_IDS[index],
+    label: row.unit,
+    value: row.value,
+  }))
+  const busiest = talukRows.reduce((top, row) => (row.value > top.value ? row : top), talukRows[0])
 
   const max = Math.max(...rows.map((row) => row.value), 1)
   const metricMeta = METRICS.find((item) => item.value === metric)!
@@ -110,9 +154,9 @@ export function MapViewPage() {
         { label: bi('Level', 'நிலை'), value: t(ui[level]) },
         { label: metricMeta.label, value: num(row.value) },
         { label: bi('Open beyond SLA', 'கால வரம்பு மீறல்'), value: num(Math.round(row.value * 0.18)) },
-        { label: bi('Oldest item', 'மிகப் பழையது'), value: '68 days' },
-        { label: bi('Population', 'மக்கள் தொகை'), value: num(18400 + row.value * 7) },
-        { label: bi('Last field visit', 'கடைசி கள வருகை'), value: '12 Oct 2024' },
+        { label: bi('Oldest item', 'மிகப் பழையது'), value: `${num(row.oldestDays)} ${t(ui.days)}` },
+        { label: bi('Population', 'மக்கள் தொகை'), value: num(row.population) },
+        { label: bi('Last field visit', 'கடைசி கள வருகை'), value: row.lastVisit },
       ],
       officer: { name: row.officer, designation: row.designation, phone: row.phone },
       audit: { updated: '24 Oct 08:30', by: 'District GIS aggregation', source: SRC.eservices },
@@ -134,35 +178,53 @@ export function MapViewPage() {
         }
       />
 
-      <Panel pad={false} className="overflow-hidden">
-        <div
-          className="relative flex h-48 items-end bg-cover bg-center p-4 sm:h-56"
-          style={{ backgroundImage: `url('${MAP_SRC}')` }}
-          role="img"
-          aria-label={t(bi('Krishnagiri district command grid', 'கிருஷ்ணகிரி மாவட்ட கட்டளை வரைபடம்'))}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-          <div className="relative z-10 flex w-full flex-wrap items-end justify-between gap-3 text-white">
-            <div>
-              <p className="font-headline-sm text-headline-sm font-bold">
-                {t(bi('Krishnagiri district command grid', 'கிருஷ்ணகிரி மாவட்ட கட்டளை வரைபடம்'))}
-              </p>
-              <p className="font-body-sm text-body-sm opacity-85">
-                {t(bi('NH-44 corridor · 7 taluks · 10 blocks · 337 panchayats', 'தே.நெ 44 வழித்தடம் · 7 வட்டம் · 10 ஒன்றியம் · 337 ஊராட்சி'))}
-              </p>
-            </div>
-            <span className="rounded bg-white/90 px-2.5 py-1 font-label-sm text-label-sm font-bold text-primary">
-              {t(bi('7/7 Tahsildars logged in', '7/7 வட்டாட்சியர் இணைப்பில்'))}
-            </span>
-          </div>
-        </div>
+      <Panel>
+        <PanelHead
+          icon="map"
+          title={bi('Krishnagiri district — by taluk', 'கிருஷ்ணகிரி மாவட்டம் — வட்டவாரி')}
+          note={bi('Tap a taluk for the officer holding it', 'வட்டத்தைத் தொட்டால் பொறுப்பு அலுவலர்')}
+        />
+
+        {/* One sentence saying what is on screen, before any colour is read. */}
+        <p className="mb-3 font-body-sm text-body-sm text-on-surface-variant">
+          {t(metricMeta.label)}: {num(METRIC_TOTAL[metric])} {t(metricMeta.unit)}{' '}
+          {t(bi('across the district. Highest —', 'மாவட்டம் முழுவதும். அதிகபட்சம் —'))}{' '}
+          <span className="font-bold text-on-surface">
+            {t(busiest.unit)} ({num(busiest.value)})
+          </span>
+          .
+        </p>
+
+        <DistrictMap
+          units={mapUnits}
+          unit={metricMeta.unit}
+          highlight={['krishnagiri', 'hosur']}
+          onSelect={(id) => {
+            const index = TALUK_IDS.indexOf(id as (typeof TALUK_IDS)[number])
+            if (index >= 0) openDrill(talukRows[index])
+          }}
+        />
+
+        <p className="mt-3 font-label-sm text-label-sm text-on-surface-variant">
+          {t(bi('7 taluks · 10 blocks · 337 panchayats · NH-44 runs Hosur–Krishnagiri', '7 வட்டம் · 10 ஒன்றியம் · 337 ஊராட்சி · தே.நெ 44 ஓசூர்–கிருஷ்ணகிரி'))}
+        </p>
       </Panel>
 
       <Panel>
         <PanelHead
           icon="grid_view"
           title={metricMeta.label}
-          note={bi('Darker means more pending — tap a tile to drill down', 'அடர் நிறம் = அதிக நிலுவை — விவரத்திற்கு தட்டவும்')}
+          note={
+            level === 'taluk' || level === 'block'
+              ? bi(
+                  'Darker means more pending · tiles add up to the district total',
+                  'அடர் நிறம் = அதிக நிலுவை · அனைத்தும் சேர்ந்து மாவட்ட மொத்தம்',
+                )
+              : bi(
+                  'Darker means more pending · sample of 12 units, not the full district',
+                  'அடர் நிறம் = அதிக நிலுவை · 12 அலகுகள் மாதிரி, முழு மாவட்டம் அல்ல',
+                )
+          }
           actions={
             <Segmented
               value={level}

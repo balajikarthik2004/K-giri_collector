@@ -389,10 +389,12 @@ export function Heatmap({
   legend?: Bi | string
 }) {
   const { t } = useI18n()
-  const max = Math.max(...rows.flatMap((row) => row.values), 1)
-  const stepFor = (value: number) => {
+  const columnMax = columns.map((_, column) =>
+    Math.max(...rows.map((row) => row.values[column] ?? 0), 1),
+  )
+  const stepFor = (value: number, column: number) => {
     if (value === 0) return { bg: 'var(--color-surface-container)', ink: MUTED }
-    const index = Math.min(SEQ.length - 1, Math.floor((value / max) * SEQ.length))
+    const index = Math.min(SEQ.length - 1, Math.floor((value / columnMax[column]) * SEQ.length))
     return { bg: SEQ[index], ink: index >= 3 ? '#ffffff' : 'var(--color-on-surface)' }
   }
 
@@ -420,7 +422,7 @@ export function Heatmap({
                 {t(row.label)}
               </th>
               {row.values.map((value, index) => {
-                const style = stepFor(value)
+                const style = stepFor(value, index)
                 return (
                   <td
                     key={index}

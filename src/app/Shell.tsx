@@ -1,8 +1,10 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Icon } from '../components/Icon'
 import { useI18n } from '../i18n'
 import { ui, roles as roleNames } from '../i18n/ui'
-import { EMBLEM_SRC, PORTRAIT_SRC } from '../data/portal'
+import { EMBLEM_SRC, PORTRAIT_FACE_CROP } from '../data/portal'
+import { ITEMS as ACTION_ITEMS } from '../data/actions'
+import { searchAll } from '../data/search'
 import { GROUP_ORDER, ROLE_SCOPE, type RoleId, type SectionId } from './sections'
 import { useApp } from './store'
 
@@ -34,7 +36,7 @@ function RoleControl() {
   const { role, setRole } = useApp()
 
   return (
-    <div className="relative flex items-center gap-2 rounded border border-white/18 bg-white/10 py-1 pr-1.5 pl-2.5 transition-colors hover:border-secondary-fixed-dim/50 hover:bg-white/16">
+    <div className="chrome-chip relative flex items-center gap-2 rounded py-1 pr-1.5 pl-2.5">
       <Icon name="switch_account" className="shrink-0 text-base text-secondary-fixed-dim" />
       <span className="flex min-w-0 flex-col leading-tight">
         <span className="truncate font-label-sm text-label-sm font-bold text-white">
@@ -79,7 +81,7 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
         if (items.length === 0) return null
         return (
           <div key={t(group)} className="flex flex-col gap-0.5">
-            <p className="px-2.5 pb-1.5 font-label-sm text-[0.625rem] font-bold tracking-[0.14em] text-outline uppercase">
+            <p className="rail-group px-2.5 pb-1.5 font-label-sm text-[0.625rem] font-bold tracking-[0.14em] uppercase">
               {t(group)}
             </p>
             {items.map((item) => {
@@ -93,10 +95,10 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
                     go(item.id as SectionId)
                     onNavigate?.()
                   }}
-                  className={`relative flex items-center gap-2.5 rounded px-2.5 py-2 text-left transition-colors ${
+                  className={`nav-item relative flex items-center gap-2.5 rounded px-2.5 py-2 text-left ${
                     active
-                      ? 'rule-accent bg-primary font-bold text-on-primary shadow-sm'
-                      : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface'
+                      ? 'rule-accent nav-active font-bold text-on-primary'
+                      : 'text-[#4c3b33] hover:text-primary'
                   }`}
                 >
                   <Icon name={item.icon} className="shrink-0 text-lg" />
@@ -127,6 +129,143 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 /* ------------------------------------------------------------------ *
+ * Masthead search — resolves a reference, petitioner, village, taluk or
+ * officer to the section holding it. ⌘K / Ctrl-K focuses it.
+ * ------------------------------------------------------------------ */
+
+function Search() {
+  const { t } = useI18n()
+  const { go } = useApp()
+  const [query, setQuery] = useState('')
+  const [open, setOpen] = useState(false)
+  const [active, setActive] = useState(0)
+  const boxRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const hits = useMemo(() => searchAll(query), [query])
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault()
+        inputRef.current?.focus()
+        inputRef.current?.select()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  useEffect(() => {
+    const onDown = (event: MouseEvent) => {
+      if (!boxRef.current?.contains(event.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
+  }, [])
+
+  const choose = (hit: (typeof hits)[number]) => {
+    go(hit.section)
+    setOpen(false)
+    setQuery('')
+    inputRef.current?.blur()
+  }
+
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setOpen(false)
+      inputRef.current?.blur()
+      return
+    }
+    if (hits.length === 0) return
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      setActive((index) => (index + 1) % hits.length)
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      setActive((index) => (index - 1 + hits.length) % hits.length)
+    } else if (event.key === 'Enter') {
+      event.preventDefault()
+      choose(hits[active])
+    }
+  }
+
+  const showPanel = open && query.trim().length > 0
+
+  return (
+    <div ref={boxRef} className="relative mx-auto hidden max-w-xl flex-1 items-center lg:flex">
+      <Icon name="search" className="pointer-events-none absolute left-3 text-lg text-white/55" />
+      <input
+        ref={inputRef}
+        type="search"
+        value={query}
+        onChange={(event) => {
+          setQuery(event.target.value)
+          setActive(0)
+          setOpen(true)
+        }}
+        onFocus={() => setOpen(true)}
+        onKeyDown={onKeyDown}
+        placeholder={t(ui.search)}
+        aria-label={t(ui.searchShort)}
+        aria-expanded={showPanel}
+        aria-controls="masthead-search-results"
+        role="combobox"
+        autoComplete="off"
+        className="chrome-chip h-9 w-full appearance-none rounded pr-16 pl-9 font-body-sm text-body-sm text-white placeholder:text-white/55 focus:border-secondary-fixed-dim/70 focus:bg-[rgba(255,255,255,0.17)] focus:outline-none"
+      />
+      <kbd className="pointer-events-none absolute right-2.5 rounded border border-white/15 bg-white/10 px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold text-white/60">
+        ⌘K
+      </kbd>
+
+      {showPanel && (
+        <div
+          id="masthead-search-results"
+          role="listbox"
+          className="absolute top-11 right-0 left-0 z-50 overflow-hidden rounded-lg border border-hairline bg-surface-container-lowest shadow-2xl"
+        >
+          {hits.length === 0 ? (
+            <p className="px-3 py-3 font-body-sm text-body-sm text-on-surface-variant">
+              {t(ui.noResults)} “{query}”
+            </p>
+          ) : (
+            <ul className="max-h-80 overflow-y-auto py-1">
+              {hits.map((hit, index) => (
+                <li key={hit.key}>
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={index === active}
+                    onMouseEnter={() => setActive(index)}
+                    onClick={() => choose(hit)}
+                    className={`flex w-full items-center gap-2.5 px-3 py-2 text-left ${
+                      index === active ? 'bg-surface-container' : ''
+                    }`}
+                  >
+                    <Icon name={hit.icon} className="shrink-0 text-lg text-primary" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate font-label-md text-label-md font-bold text-on-surface">
+                        {hit.title}
+                      </span>
+                      <span className="block truncate font-body-sm text-body-sm text-on-surface-variant">
+                        {hit.subtitle}
+                      </span>
+                    </span>
+                    <span className="shrink-0 rounded bg-surface-container-high px-1.5 py-0.5 font-label-sm text-[0.625rem] font-bold text-on-surface-variant">
+                      {t(hit.kind)}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ *
  * Shell
  * ------------------------------------------------------------------ */
 
@@ -136,7 +275,7 @@ function Divider() {
 
 export function Shell({ children }: { children: ReactNode }) {
   const { t, lang, setLang } = useI18n()
-  const { toast, notify, go } = useApp()
+  const { toast, go } = useApp()
   const [navOpen, setNavOpen] = useState(false)
   const clock = useClock()
 
@@ -151,11 +290,14 @@ export function Shell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-background">
       {/* ================= Masthead ================= */}
       <header
-        className="chrome chrome-rule fixed top-0 right-0 left-0 z-50 flex h-14 items-center gap-2 px-3 lg:h-16 lg:gap-3 lg:px-4"
+        className="chrome-topbar chrome-rule fixed top-0 right-0 left-0 z-50 flex h-14 items-center gap-2 px-3 lg:h-16 lg:gap-3 lg:px-4"
         data-print="hide"
       >
         {/* Hairline highlight along the very top edge */}
-        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-white/15" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-white/5 via-white/30 to-white/5"
+        />
 
         <button
           type="button"
@@ -175,7 +317,7 @@ export function Shell({ children }: { children: ReactNode }) {
           <img
             src={EMBLEM_SRC}
             alt=""
-            className="h-9 w-9 shrink-0 rounded-full bg-white p-0.5 shadow-[0_1px_3px_rgba(0,0,0,0.35)] ring-1 ring-secondary-fixed-dim/50 lg:h-10 lg:w-10"
+            className="emblem-plate h-9 w-9 shrink-0 rounded-full object-cover p-0.5 lg:h-10 lg:w-10"
           />
           <span className="flex min-w-0 flex-col">
             <span className="truncate font-headline-sm text-[0.9375rem] leading-tight font-bold tracking-tight text-white lg:text-[1.0625rem]">
@@ -188,21 +330,7 @@ export function Shell({ children }: { children: ReactNode }) {
         </button>
 
         {/* Search */}
-        <div className="relative mx-auto hidden max-w-xl flex-1 items-center lg:flex">
-          <Icon
-            name="search"
-            className="pointer-events-none absolute left-3 text-lg text-white/55"
-          />
-          <input
-            type="search"
-            placeholder={t(ui.search)}
-            aria-label={t(ui.searchShort)}
-            className="h-9 w-full appearance-none rounded border border-white/18 bg-[rgba(255,255,255,0.1)] pr-16 pl-9 font-body-sm text-body-sm text-white transition-colors placeholder:text-white/55 focus:border-secondary-fixed-dim/70 focus:bg-[rgba(255,255,255,0.17)] focus:outline-none"
-          />
-          <kbd className="pointer-events-none absolute right-2.5 rounded border border-white/15 bg-white/10 px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold text-white/60">
-            ⌘K
-          </kbd>
-        </div>
+        <Search />
 
         {/* Utilities */}
         <div className="ml-auto flex items-center gap-1.5">
@@ -223,7 +351,7 @@ export function Shell({ children }: { children: ReactNode }) {
             <RoleControl />
           </div>
 
-          <div className="flex items-center rounded border border-white/18 bg-white/10 p-0.5">
+          <div className="chrome-chip flex items-center rounded p-0.5">
             {(['ta', 'en'] as const).map((code) => (
               <button
                 key={code}
@@ -231,7 +359,7 @@ export function Shell({ children }: { children: ReactNode }) {
                 onClick={() => setLang(code)}
                 className={`rounded px-2 py-1 font-label-sm text-label-sm font-bold transition-colors ${
                   lang === code
-                    ? 'bg-secondary-fixed-dim text-on-secondary-fixed shadow-sm'
+                    ? 'gold-pill text-on-secondary-fixed'
                     : 'text-white/70 hover:text-white'
                 }`}
               >
@@ -244,24 +372,14 @@ export function Shell({ children }: { children: ReactNode }) {
 
           <button
             type="button"
-            onClick={() => window.print()}
-            title={t(ui.print)}
-            aria-label={t(ui.print)}
-            className="hidden h-9 w-9 items-center justify-center rounded text-white/85 transition-colors hover:bg-white/12 hover:text-white sm:flex"
-          >
-            <Icon name="print" className="text-xl" />
-          </button>
-
-          <button
-            type="button"
             onClick={() => go('actions')}
             title={t(ui.actionQueue)}
             aria-label={t(ui.actionQueue)}
             className="relative flex h-9 w-9 items-center justify-center rounded text-white/85 transition-colors hover:bg-white/12 hover:text-white"
           >
             <Icon name="notifications" className="text-xl" />
-            <span className="absolute top-0.5 right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-secondary-fixed-dim px-1 font-label-sm text-[0.625rem] font-bold text-on-secondary-fixed">
-              18
+            <span className="gold-pill absolute top-0.5 right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 font-label-sm text-[0.625rem] font-bold text-on-secondary-fixed">
+              {ACTION_ITEMS.length}
             </span>
           </button>
 
@@ -271,10 +389,11 @@ export function Shell({ children }: { children: ReactNode }) {
             type="button"
             className="flex shrink-0 items-center gap-2 rounded py-0.5 pr-1 pl-0.5 text-left transition-colors hover:bg-white/12"
           >
-            <img
-              src={PORTRAIT_SRC}
-              alt={t(ui.collector)}
-              className="h-8 w-8 rounded-full object-cover ring-2 ring-secondary-fixed-dim/60"
+            <span
+              role="img"
+              aria-label={t(ui.collector)}
+              style={PORTRAIT_FACE_CROP}
+              className="h-9 w-9 shrink-0 rounded-full ring-2 ring-secondary-fixed-dim/70 ring-offset-1 ring-offset-[#4d040d]"
             />
             <span className="hidden flex-col leading-tight 2xl:flex">
               <span className="font-label-sm text-label-sm font-bold text-white">
@@ -290,27 +409,10 @@ export function Shell({ children }: { children: ReactNode }) {
 
       {/* ================= Desktop rail ================= */}
       <aside
-        className="fixed top-16 bottom-0 left-0 z-40 hidden w-64 flex-col justify-between overflow-y-auto border-r border-hairline bg-surface-container-lowest px-2.5 py-4 lg:flex"
+        className="rail fixed top-16 bottom-0 left-0 z-40 hidden w-64 flex-col overflow-y-auto border-r border-hairline px-2.5 py-4 lg:flex"
         data-print="hide"
       >
         <NavList />
-        <div className="mt-4 flex flex-col gap-1.5">
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="flex w-full items-center justify-center gap-1.5 rounded border border-hairline bg-surface-container-low py-2 font-label-sm text-label-sm font-bold text-primary hover:bg-surface-container"
-          >
-            <Icon name="picture_as_pdf" className="text-base" />
-            {t(ui.print)}
-          </button>
-          <a
-            href="tel:1077"
-            className="flex w-full items-center justify-center gap-1.5 rounded bg-error py-2 font-label-sm text-label-sm font-bold text-on-error shadow-sm hover:opacity-95"
-          >
-            <Icon name="emergency" className="text-base" />
-            1077
-          </a>
-        </div>
       </aside>
 
       {/* ================= Mobile nav sheet ================= */}
@@ -322,10 +424,14 @@ export function Shell({ children }: { children: ReactNode }) {
             onClick={() => setNavOpen(false)}
             className="absolute inset-0 bg-black/45"
           />
-          <div className="relative flex h-full w-72 max-w-[85vw] flex-col overflow-y-auto bg-surface-container-lowest shadow-2xl">
+          <div className="rail relative flex h-full w-72 max-w-[85vw] flex-col overflow-y-auto shadow-2xl">
             <div className="chrome flex items-center justify-between px-3 py-3">
               <span className="flex items-center gap-2">
-                <img src={EMBLEM_SRC} alt="" className="h-8 w-8 rounded-full bg-white p-0.5" />
+                <img
+                  src={EMBLEM_SRC}
+                  alt=""
+                  className="emblem-plate h-8 w-8 rounded-full object-cover p-0.5"
+                />
                 <span className="font-label-md text-label-md font-bold text-white">
                   {t(ui.appName)}
                 </span>
@@ -378,14 +484,6 @@ export function Shell({ children }: { children: ReactNode }) {
             <span className="font-label-sm text-[0.625rem]">{t(item.label)}</span>
           </button>
         ))}
-        <button
-          type="button"
-          onClick={() => notify(ui.pushed)}
-          className="flex flex-col items-center gap-0.5 px-3 py-0.5 text-on-surface-variant"
-        >
-          <Icon name="ios_share" className="text-xl" />
-          <span className="font-label-sm text-[0.625rem]">{t(ui.pushMobile)}</span>
-        </button>
       </nav>
 
       {/* ================= Toast ================= */}

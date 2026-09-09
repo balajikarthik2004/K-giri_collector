@@ -7,21 +7,24 @@ import { DataTable, type Column } from '../components/ui/DataTable'
 import { DrillDrawer, type Drill } from '../components/ui/Drawer'
 import { BLOCKS, DESIG, MONTHS, SRC } from '../data/common'
 
-const FEVER: { label: Bi; values: number[] }[] = BLOCKS.slice(0, 7).map((block, index) => ({
+const FEVER: { label: Bi; values: number[] }[] = BLOCKS.map((block, index) => ({
   label: block,
   values: [
-    [12, 18, 9, 4],
-    [22, 31, 14, 6],
-    [8, 11, 5, 2],
-    [6, 9, 3, 1],
-    [14, 21, 8, 3],
-    [9, 12, 6, 2],
-    [11, 16, 7, 3],
+    [186, 42, 9, 4],
+    [312, 68, 14, 6],
+    [124, 26, 5, 2],
+    [88, 18, 3, 1],
+    [142, 30, 6, 2],
+    [96, 22, 4, 2],
+    [118, 28, 5, 2],
+    [102, 20, 3, 1],
+    [74, 14, 2, 1],
+    [58, 9, 1, 0],
   ][index],
 }))
 
 const FEVER_COLS: Bi[] = [
-  bi('Fever', 'காய்ச்சல்'),
+  bi('Fever screened', 'காய்ச்சல் பரிசோதனை'),
   bi('Dengue susp.', 'டெங்கு சந்தேகம்'),
   bi('Confirmed', 'உறுதி'),
   bi('Admitted', 'அனுமதி'),
@@ -137,7 +140,7 @@ export function HealthPage() {
           <Heatmap
             rows={FEVER}
             columns={FEVER_COLS}
-            legend={bi('Fewer → more cases', 'குறைவு → அதிக வழக்குகள்')}
+            legend={bi('Fewer → more, shaded per column', 'குறைவு → அதிகம், நெடுவரிசை வாரியாக')}
           />
         </Panel>
 

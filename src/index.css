@@ -190,6 +190,16 @@
     padding: 0;
   }
 
+  /*
+   * Everything in this build is sized in rem — type, spacing, control heights,
+   * radii — so dropping the root size scales the whole interface to 90% and
+   * fits appreciably more of a review on one screen. Change this one number to
+   * retune the density; nothing else needs touching.
+   */
+  html {
+    font-size: 90%;
+  }
+
   body {
     overscroll-behavior: none;
     background-color: #f7f5f0;
@@ -254,11 +264,133 @@
       linear-gradient(103deg, #3d0208 0%, #6d181d 38%, #8c2529 58%, #5c0510 100%);
   }
 
+  /* The masthead itself: same maroon family, but with a warmer gold bloom on
+     the identity side and a crimson sweep behind the utility cluster. */
+  .chrome-topbar {
+    background-color: #4d040d;
+    background-image:
+      radial-gradient(34rem 15rem at 9% -55%, rgba(247, 208, 108, 0.26), transparent 72%),
+      radial-gradient(40rem 18rem at 68% 155%, rgba(206, 66, 66, 0.32), transparent 70%),
+      radial-gradient(22rem 10rem at 100% 0%, rgba(255, 172, 120, 0.14), transparent 68%),
+      linear-gradient(101deg, #37020a 0%, #63141b 26%, #90282b 50%, #6b171d 76%, #430410 100%);
+  }
+
   /* Gold underline that separates the chrome from the page plane. */
   .chrome-rule {
+    box-shadow: 0 6px 22px rgba(20, 4, 8, 0.32);
+  }
+
+  /* Gradient gold rule, brightest under the centre of the masthead. */
+  .chrome-rule::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 2px;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(236, 194, 70, 0) 0%,
+      rgba(236, 194, 70, 0.85) 14%,
+      #f7dc8a 38%,
+      #fff1c4 52%,
+      #f7dc8a 66%,
+      rgba(236, 194, 70, 0.85) 86%,
+      rgba(236, 194, 70, 0) 100%
+    );
+  }
+
+  /* Gold-tinted plate the emblem sits on. */
+  .emblem-plate {
+    background-image: linear-gradient(160deg, #ffffff 0%, #fffaf0 55%, #fdeecb 100%);
     box-shadow:
-      inset 0 -2px 0 0 rgba(236, 194, 70, 0.9),
-      0 4px 18px rgba(20, 4, 8, 0.28);
+      0 1px 3px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(236, 194, 70, 0.55),
+      0 0 14px -4px rgba(247, 220, 138, 0.75);
+  }
+
+  /* Gradient pill used by the active language toggle and the alert count. */
+  .gold-pill {
+    background-image: linear-gradient(140deg, #ffe9a8 0%, #ecc246 48%, #d8a52c 100%);
+    box-shadow:
+      0 1px 2px rgba(20, 4, 8, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+
+  /* Frosted control surface for the chips in the masthead. */
+  .chrome-chip {
+    background-image: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.08) 55%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .chrome-chip:hover {
+    border-color: rgba(236, 194, 70, 0.55);
+    box-shadow: 0 0 12px -4px rgba(247, 220, 138, 0.6);
+  }
+
+  /* ---------------------------------------------------------------- *
+   * Navigation rail — a warm parchment plane, tinted maroon where it
+   * meets the masthead so the two chrome surfaces read as one piece.
+   * ---------------------------------------------------------------- */
+  .rail {
+    background-color: #ece1cd;
+    background-image:
+      /* maroon wash where the rail meets the masthead */
+      linear-gradient(180deg, rgba(92, 5, 16, 0.18) 0%, rgba(92, 5, 16, 0.07) 12%, rgba(92, 5, 16, 0) 34%),
+      /* gold bloom pooling in the bottom corner */
+      radial-gradient(24rem 20rem at 0% 104%, rgba(224, 176, 48, 0.34), transparent 72%),
+      linear-gradient(176deg, #f2e9d9 0%, #ebe0cb 50%, #e2d5ba 100%);
+    border-right-color: rgba(92, 5, 16, 0.14) !important;
+    box-shadow: inset -14px 0 22px -20px rgba(20, 4, 8, 0.5);
+  }
+
+  /* Group heading above each cluster of sections. */
+  .rail-group {
+    color: #8a6a4a;
+  }
+
+  /* Selected section: the masthead maroon, carried into the rail. */
+  .nav-active {
+    background-image: linear-gradient(100deg, #5c0510 0%, #7d2126 56%, #93292d 100%);
+    box-shadow:
+      0 1px 2px rgba(20, 4, 8, 0.25),
+      0 10px 18px -10px rgba(92, 5, 16, 0.7);
+  }
+
+  .nav-item {
+    transition:
+      background-color 140ms ease,
+      box-shadow 140ms ease,
+      color 140ms ease;
+  }
+
+  /* Inactive rows lift onto a clean white card on hover. */
+  .nav-item:not(.nav-active):hover {
+    background-image: linear-gradient(100deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.6) 100%);
+    box-shadow: 0 1px 2px rgba(20, 4, 8, 0.06);
+  }
+
+  /* ---------------------------------------------------------------- *
+   * KPI tile — a soft surface gradient plus a tonal glow in the top
+   * corner. `--stat-glow` is set per tone at the call site.
+   * ---------------------------------------------------------------- */
+  .stat-tile {
+    background-image:
+      radial-gradient(15rem 9rem at 100% 0%, var(--stat-glow, transparent), transparent 70%),
+      linear-gradient(168deg, #ffffff 0%, #fdfbf7 58%, #f6f3ec 100%);
+  }
+
+  .stat-tile:hover {
+    border-color: var(--color-hairline-strong);
   }
 
   .rule-accent::before {

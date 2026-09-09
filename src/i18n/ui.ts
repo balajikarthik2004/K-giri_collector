@@ -4,7 +4,7 @@ import { bi } from './index'
 export const ui = {
   appName: bi('Krishnagiri District', 'கிருஷ்ணகிரி மாவட்டம்'),
   appSub: bi('Collectorate Command Portal', 'ஆட்சியர் கட்டளை மையம்'),
-  collector: bi('Thiru C. Kathiravan, IAS', 'திரு சி. கதிரவன், இ.ஆ.ப.'),
+  collector: bi('Thiru C. Dinesh Kumar, IAS', 'திரு சி. தினேஷ் குமார், இ.ஆ.ப.'),
   collectorRole: bi('District Collector & Magistrate', 'மாவட்ட ஆட்சித்தலைவர்'),
 
   briefingDate: bi('24 Oct 2024 · Thu', 'அக் 24, 2024 · வியாழன்'),
@@ -59,7 +59,8 @@ export const ui = {
   critical: bi('Critical', 'தீவிரம்'),
   vacancy: bi('Vacancy', 'காலியிடம்'),
   today: bi('Today', 'இன்று'),
-  days: bi('days', 'நாட்கள'),
+  day: bi('day', 'நாள்'),
+  days: bi('days', 'நாட்கள்'),
   vs: bi('vs', 'ஒப்பீடு'),
 
   // Chrome
