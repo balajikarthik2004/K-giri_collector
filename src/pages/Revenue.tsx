@@ -93,7 +93,7 @@ export function RevenuePage() {
     { key: 'patta', head: bi('Patta pending', 'பட்டா நிலுவை'), align: 'right', text: (row) => num(row.patta) },
     {
       key: 'sla',
-      head: bi('Beyond SLA', 'கால வரம்பு மீறல்'),
+      head: bi('Overdue', 'காலம் தாண்டியவை'),
       align: 'right',
       text: (row) => num(row.beyondSla),
       render: (row) => (
@@ -148,7 +148,7 @@ export function RevenuePage() {
       />
 
       <StatGrid>
-        <Stat label={bi('Patta transfers pending', 'பட்டா மாற்ற நிலுவை')} value={num(3038)} delta={t(bi('214 beyond SLA', '214 கால வரம்பு மீறல்'))} deltaTone="bad" />
+        <Stat label={bi('Patta transfers pending', 'பட்டா மாற்ற நிலுவை')} value={num(3038)} delta={t(bi('214 overdue', '214 காலம் தாண்டியவை'))} deltaTone="bad" />
         <Stat label={bi('FMB sketch requests', 'எஃப்.எம்.பி கோரிக்கை')} value={num(842)} footnote={bi('Avg 18 days', 'சராசரி 18 நாட்கள்')} />
         <Stat label={bi('SRO collection', 'சார்பதிவாளர் வசூல்')} value="₹125.5" unit="Cr" delta="88.4%" deltaTone="good" meter={88.4} />
         <Stat label={bi('Encroachment cases', 'ஆக்கிரமிப்பு வழக்குகள்')} value={num(287)} footnote={bi('Natham & poromboke', 'நத்தம் & புறம்போக்கு')} />
@@ -159,7 +159,7 @@ export function RevenuePage() {
         <Panel className="xl:col-span-2">
           <PanelHead
             icon="table_chart"
-            title={bi('Pendency by taluk', 'வட்டவாரி நிலுவை')}
+            title={bi('Pending cases by taluk', 'வட்டவாரி நிலுவை வழக்குகள்')}
             note={bi('Tap a row for the officer holding the file', 'கோப்பை வைத்திருக்கும் அலுவலரைக் காண வரிசையைத் தொடவும்')}
             actions={
               <Segmented
@@ -183,10 +183,10 @@ export function RevenuePage() {
                   title: t(row.taluk),
                   ref: `REV/${row.id.toUpperCase()}`,
                   tone: row.beyondSla > 60 ? 'critical' : 'warning',
-                  status: bi('Pendency review', 'நிலுவை ஆய்வு'),
+                  status: bi('Pending case review', 'நிலுவை வழக்கு ஆய்வு'),
                   facts: [
                     { label: bi('Patta pending', 'பட்டா நிலுவை'), value: num(row.patta) },
-                    { label: bi('Beyond SLA', 'கால வரம்பு மீறல்'), value: num(row.beyondSla) },
+                    { label: bi('Overdue', 'காலம் தாண்டியவை'), value: num(row.beyondSla) },
                     { label: bi('FMB sketches', 'எஃப்.எம்.பி'), value: num(row.fmb) },
                     { label: bi('A-Register', 'அ-பதிவேடு'), value: num(row.aRegister) },
                     { label: bi('Encroachment', 'ஆக்கிரமிப்பு'), value: num(row.encroach) },

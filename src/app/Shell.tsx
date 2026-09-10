@@ -350,7 +350,7 @@ function ProfileMenu() {
               </div>
               <div className="flex items-baseline justify-between gap-2">
                 <dt className="font-label-sm text-label-sm text-on-surface-variant">
-                  {t(bi('Jurisdiction', 'எல்லை'))}
+                  {t(bi('Administrative Area', 'நிர்வாகப் பகுதி'))}
                 </dt>
                 <dd className="font-label-sm text-label-sm font-bold text-on-surface">
                   {t(ROLE_SCOPE[role])}

@@ -346,7 +346,7 @@ export function OverviewPage() {
           onClick={() => go('grievances')}
         />
         <Stat
-          label={bi('SLA breaches', 'கால வரம்பு மீறல்')}
+          label={bi('Overdue cases', 'காலம் தாண்டிய வழக்குகள்')}
           value="59"
           delta={t(bi('+4 today', 'இன்று +4'))}
           deltaTone="bad"

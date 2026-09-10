@@ -32,7 +32,7 @@ export const ui = {
   showChart: bi('Chart view', 'வரைபடக் காட்சி'),
 
   // Scopes & roles
-  role: bi('Role', 'பணியிடம்'),
+  role: bi('Role', 'பதவி'),
   scope: bi('Scope', 'எல்லை'),
   district: bi('District', 'மாவட்டம்'),
   taluk: bi('Taluk', 'வட்டம்'),

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useI18n, num, type Bi } from '../../i18n'
 
 /* Series colours: fixed order, never cycled. Identity only. */
@@ -447,6 +447,266 @@ export function Heatmap({
           </span>
         </p>
       )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ *
+ * Line chart — a real time series: a labelled y axis, a hover
+ * crosshair that reads every series at once, an optional confidence
+ * band, and a dashed tail for the stretch of the line that is a
+ * projection rather than a recorded figure.
+ * ------------------------------------------------------------------ */
+
+export type LineSeries = {
+  label: Bi | string
+  values: number[]
+  color?: string
+  /** Index from which the line is a projection: dashed, hollow markers. */
+  forecastFrom?: number
+}
+
+/** Axis ticks a reader can do arithmetic on — 1 / 2 / 2.5 / 5 × a power of ten. */
+function niceScale(lo: number, hi: number, count: number) {
+  const raw = (hi - lo || 1) / count
+  const magnitude = 10 ** Math.floor(Math.log10(raw))
+  const step =
+    [1, 2, 2.5, 5, 10].map((multiple) => multiple * magnitude).find((value) => value >= raw) ??
+    magnitude * 10
+  const start = Math.floor(lo / step) * step
+  const end = Math.ceil(hi / step) * step
+  const ticks: number[] = []
+  for (let value = start; value <= end + step / 2; value += step) {
+    ticks.push(Number(value.toFixed(6)))
+  }
+  return { ticks, lo: start, hi: end }
+}
+
+export function LineChart({
+  labels,
+  series,
+  height = 200,
+  unit = '',
+  band,
+  area = true,
+  zeroFloor = true,
+  tickCount = 4,
+}: {
+  labels: (Bi | string)[]
+  series: LineSeries[]
+  height?: number
+  unit?: string
+  /** Confidence interval drawn behind the lines, aligned to `labels`. */
+  band?: { upper: number[]; lower: number[]; color?: string; label?: Bi | string }
+  area?: boolean
+  zeroFloor?: boolean
+  tickCount?: number
+}) {
+  const { t } = useI18n()
+  const [ref, width] = useWidth<HTMLDivElement>()
+  const [hover, setHover] = useState<number | null>(null)
+  const gradientId = useId()
+
+  const padL = 40
+  const padR = 10
+  const padT = 10
+  const padB = 22
+  const plotW = Math.max(width - padL - padR, 1)
+  const plotH = Math.max(height - padT - padB, 1)
+
+  const pool = [
+    ...series.flatMap((line) => line.values),
+    ...(band ? [...band.upper, ...band.lower] : []),
+  ].filter((value) => Number.isFinite(value))
+  const scale = niceScale(
+    zeroFloor ? Math.min(0, ...pool) : Math.min(...pool),
+    Math.max(...pool, 1),
+    tickCount,
+  )
+
+  const slotW = plotW / Math.max(labels.length - 1, 1)
+  const x = (index: number) => padL + slotW * index
+  const y = (value: number) =>
+    padT + plotH - ((value - scale.lo) / (scale.hi - scale.lo || 1)) * plotH
+
+  /** Every label if there is room, otherwise every other one. */
+  const labelStep = slotW < 42 && labels.length > 9 ? 2 : 1
+
+  const pointsFor = (values: number[], from: number, to: number) =>
+    values
+      .slice(from, to + 1)
+      .map((value, index) => `${x(from + index)},${y(value)}`)
+      .join(' ')
+
+  return (
+    <div ref={ref} className="relative w-full">
+      {width > 0 && (
+        <svg width={width} height={height} role="img" aria-label={t(series[0].label)}>
+          <defs>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={series[0].color ?? SERIES[0]} stopOpacity={0.22} />
+              <stop offset="100%" stopColor={series[0].color ?? SERIES[0]} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+
+          {/* Gridlines with their value on the axis */}
+          {scale.ticks.map((tick) => (
+            <g key={tick}>
+              <line
+                x1={padL}
+                x2={width - padR}
+                y1={y(tick)}
+                y2={y(tick)}
+                stroke={tick === 0 ? AXIS : GRID}
+                strokeWidth={1}
+              />
+              <text x={padL - 6} y={y(tick) + 3} textAnchor="end" fontSize={9} fill={MUTED}>
+                {num(tick, Number.isInteger(tick) ? 0 : 1)}
+              </text>
+            </g>
+          ))}
+
+          {/* Confidence band, behind the lines */}
+          {band && (
+            <path
+              d={[
+                `M${band.upper.map((value, index) => `${x(index)} ${y(value)}`).join(' L')}`,
+                `L${band.lower
+                  .map((value, index) => ({ value, index }))
+                  .reverse()
+                  .map((point) => `${x(point.index)} ${y(point.value)}`)
+                  .join(' L')}`,
+                'Z',
+              ].join(' ')}
+              fill={band.color ?? SERIES[0]}
+              fillOpacity={0.13}
+            />
+          )}
+
+          {/* Area under the primary series */}
+          {area && (
+            <path
+              d={[
+                `M${x(0)} ${y(series[0].values[0])}`,
+                ...series[0].values.map((value, index) => `L${x(index)} ${y(value)}`),
+                `L${x(series[0].values.length - 1)} ${padT + plotH}`,
+                `L${x(0)} ${padT + plotH}`,
+                'Z',
+              ].join(' ')}
+              fill={`url(#${gradientId})`}
+            />
+          )}
+
+          {series.map((line, lineIndex) => {
+            const color = line.color ?? SERIES[lineIndex]
+            const split = line.forecastFrom ?? line.values.length - 1
+            return (
+              <g key={t(line.label)}>
+                <polyline
+                  points={pointsFor(line.values, 0, split)}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                {split < line.values.length - 1 && (
+                  <polyline
+                    points={pointsFor(line.values, split, line.values.length - 1)}
+                    fill="none"
+                    stroke={color}
+                    strokeWidth={2}
+                    strokeDasharray="5 4"
+                    strokeLinecap="round"
+                  />
+                )}
+                {line.values.map((value, index) => (
+                  <circle
+                    key={index}
+                    cx={x(index)}
+                    cy={y(value)}
+                    r={hover === index ? 4 : 2.5}
+                    fill={index > split ? SURFACE : color}
+                    stroke={color}
+                    strokeWidth={index > split ? 2 : 1}
+                  />
+                ))}
+              </g>
+            )
+          })}
+
+          {hover !== null && (
+            <line
+              x1={x(hover)}
+              x2={x(hover)}
+              y1={padT}
+              y2={padT + plotH}
+              stroke={AXIS}
+              strokeWidth={1}
+              strokeDasharray="3 3"
+            />
+          )}
+
+          {/* Hit areas and the x axis */}
+          {labels.map((label, index) => (
+            <g key={index} onMouseEnter={() => setHover(index)} onMouseLeave={() => setHover(null)}>
+              <rect
+                x={x(index) - slotW / 2}
+                y={padT}
+                width={slotW}
+                height={plotH}
+                fill="transparent"
+              />
+              {index % labelStep === 0 && (
+                <text
+                  x={x(index)}
+                  y={height - 6}
+                  textAnchor={
+                    index === 0 ? 'start' : index === labels.length - 1 ? 'end' : 'middle'
+                  }
+                  fontSize={10}
+                  fill={hover === index ? 'var(--color-on-surface)' : MUTED}
+                  fontWeight={hover === index ? 700 : 500}
+                >
+                  {t(label)}
+                </text>
+              )}
+            </g>
+          ))}
+        </svg>
+      )}
+
+      {hover !== null && (
+        <Tip x={x(hover)} y={Math.min(...series.map((line) => y(line.values[hover])))}>
+          <span className="font-bold">{t(labels[hover])}</span>
+          {series.map((line) => (
+            <span key={t(line.label)}>
+              {' · '}
+              {t(line.label)}{' '}
+              {num(line.values[hover], Number.isInteger(line.values[hover]) ? 0 : 1)}
+              {unit}
+            </span>
+          ))}
+        </Tip>
+      )}
+
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+        <Legend
+          items={series.map((line, index) => ({
+            label: line.label,
+            color: line.color ?? SERIES[index],
+          }))}
+        />
+        {band?.label && (
+          <span className="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+            <span
+              className="h-2.5 w-4 shrink-0 rounded-[2px]"
+              style={{ background: band.color ?? SERIES[0], opacity: 0.3 }}
+            />
+            {t(band.label)}
+          </span>
+        )}
+      </div>
     </div>
   )
 }

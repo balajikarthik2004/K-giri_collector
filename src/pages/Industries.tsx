@@ -170,7 +170,7 @@ export function IndustriesPage() {
           />
           <div className="mt-4 flex flex-wrap gap-1.5">
             <Tag label={bi('Avg clearance 19 days', 'சராசரி அனுமதி 19 நாட்கள்')} />
-            <Tag label={bi('SLA 30 days', 'கால வரம்பு 30 நாட்கள்')} />
+            <Tag label={bi('Time limit 30 days', 'கால வரம்பு 30 நாட்கள்')} />
           </div>
         </Panel>
       </div>

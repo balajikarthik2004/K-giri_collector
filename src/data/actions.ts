@@ -24,7 +24,7 @@ export type Item = {
 }
 
 export const KIND_LABEL: Record<Kind, Bi> = {
-  sla: bi('SLA breach', 'கால வரம்பு மீறல்'),
+  sla: bi('Overdue', 'காலம் தாண்டியவை'),
   court: bi('Court direction', 'நீதிமன்ற உத்தரவு'),
   vip: bi('VIP reference', 'முக்கிய பரிந்துரை'),
   sign: bi('Awaiting signature', 'கையொப்பம் நிலுவை'),

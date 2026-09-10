@@ -113,7 +113,7 @@ export function InfrastructurePage() {
         <Stat label={bi('Tankers deployed', 'தொட்டி லாரி')} value="69" unit={t(bi('per day', 'நாளொன்றுக்கு'))} />
         <Stat label={bi('Streetlight failures', 'தெரு விளக்கு பழுது')} value={num(1284)} delta={t(bi('86% closed in 48 h', '48 மணியில் 86% சரி'))} deltaTone="good" meter={86} meterTone="good" />
         <Stat label={bi('Property tax collection', 'சொத்து வரி வசூல்')} value="68.4%" delta="₹132.4 Cr" deltaTone="neutral" meter={68.4} meterTone="warning" />
-        <Stat label={bi('Building approvals pending', 'கட்டட அனுமதி நிலுவை')} value="212" delta={t(bi('38 beyond SLA', '38 கால வரம்பு மீறல்'))} deltaTone="bad" />
+        <Stat label={bi('Building approvals pending', 'கட்டட அனுமதி நிலுவை')} value="212" delta={t(bi('38 overdue', '38 காலம் தாண்டியவை'))} deltaTone="bad" />
       </StatGrid>
 
       <Panel>

@@ -153,7 +153,7 @@ export function MapViewPage() {
       facts: [
         { label: bi('Level', 'நிலை'), value: t(ui[level]) },
         { label: metricMeta.label, value: num(row.value) },
-        { label: bi('Open beyond SLA', 'கால வரம்பு மீறல்'), value: num(Math.round(row.value * 0.18)) },
+        { label: bi('Open past due date', 'காலம் தாண்டி நிலுவையில்'), value: num(Math.round(row.value * 0.18)) },
         { label: bi('Oldest item', 'மிகப் பழையது'), value: `${num(row.oldestDays)} ${t(ui.days)}` },
         { label: bi('Population', 'மக்கள் தொகை'), value: num(row.population) },
         { label: bi('Last field visit', 'கடைசி கள வருகை'), value: row.lastVisit },
